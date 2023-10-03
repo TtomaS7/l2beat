@@ -10,6 +10,7 @@ import {
   UnixTime,
 } from '@l2beat/shared-pure'
 import { utils } from 'ethers'
+import { getContractAddress } from 'ethers/lib/utils'
 import fs from 'fs'
 import { isArray, isString } from 'lodash'
 import path from 'path'
@@ -357,6 +358,33 @@ export class ProjectDiscovery {
     )
 
     return contract
+  }
+
+  getOpStackContractDetails(
+    upgradesProxy: Partial<ProjectContractSingleAddress>,
+  ): ProjectContractSingleAddress[] {
+    const CONTRACT_DESCRIPTION = [
+      {
+        name: 'L2OutputOracle',
+        description:
+          'The L2OutputOracle contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.',
+      },
+      {
+        name: 'OptimismPortal',
+        description:
+          'The OptimismPortal contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.',
+      },
+      {
+        name: 'SystemConfig',
+        description:
+          'It contains configuration parameters such as the Sequencer address, the L2 gas limit and the unsafe block signer address.',
+      },
+    ]
+
+    return CONTRACT_DESCRIPTION.map(d => this.getContractDetails(d.name, {
+        description: d.description,
+        ...upgradesProxy
+    }))
   }
 
   private getContractByName(name: string): ContractParameters {

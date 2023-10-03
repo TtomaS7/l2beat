@@ -322,29 +322,15 @@ export const base: Layer2 = {
   ],
   contracts: {
     addresses: [
-      discovery.getContractDetails('L2OutputOracle', {
+      ...discovery.getOpStackContractDetails(upgradesProxy),
+      discovery.getContractDetails('L1CrossDomainMessenger', {
         description:
-          'The L2OutputOracle contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.',
-        ...upgradesProxy,
-      }),
-      discovery.getContractDetails('OptimismPortal', {
-        description:
-          'The OptimismPortal contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.',
-        ...upgradesProxy,
-      }),
-      discovery.getContractDetails('SystemConfig', {
-        description:
-          'It contains configuration parameters such as the Sequencer address, the L2 gas limit and the unsafe block signer address.',
+          "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
         ...upgradesProxy,
       }),
       discovery.getContractDetails('L1ERC721Bridge', {
         description:
           'The L1ERC721Bridge contract is the main entry point to deposit ERC721 tokens from L1 to L2.',
-        ...upgradesProxy,
-      }),
-      discovery.getContractDetails('L1CrossDomainMessenger', {
-        description:
-          "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
         ...upgradesProxy,
       }),
       discovery.getContractDetails('Challenger1of2', {

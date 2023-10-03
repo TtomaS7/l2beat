@@ -1,0 +1,3473 @@
+[
+  {
+    type: "layer2",
+    id: "aevo",
+    display: {
+      name: "Aevo",
+      slug: "aevo",
+      warning: "Fraud proof system is currently under development. Users need to trust the block proposer to submit correct L1 state roots.",
+      description: "Aevo is a high-performance decentralized options exchange, powered by the OP Stack.",
+      purpose: "DEX",
+      provider: "OP Stack",
+      category: "Optimistic Rollup",
+      links: {
+        websites: [ "https://www.aevo.xyz/" ],
+        apps: [ "https://app.aevo.xyz/" ],
+        documentation: [ "https://docs.aevo.xyz/" ],
+        explorers: [ "https://explorer.aevo.xyz/" ],
+        repositories: [ "https://github.com/aevoxyz" ],
+        socialMedia: [ "https://twitter.com/aevoxyz" ]
+      },
+      activityDataSource: "Blockchain RPC"
+    },
+    config: {
+      escrows: [
+        {
+          address: "0x787A0ACaB02437c60Aafb1a29167A3609801e320",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1679193119,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: [ "ETH" ],
+          contract: {
+            name: "OptimismPortal",
+            description: "Main entry point for users depositing ETH.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0x098927F692C86fA1722115652b9d2d7BE8cBa6D3",
+              admin: "0x27ff92b30Cae00dABCF8045cc68fc9dcB67C5019"
+            },
+            upgradableBy: [ "ProxyAdmin" ],
+            upgradeDelay: "No delay"
+          }
+        }, {
+          address: "0x4082C9647c098a6493fb499EaE63b5ce3259c574",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1679193071,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: "*",
+          contract: {
+            name: "L1StandardBridge",
+            description: "Main entry point for users depositing ERC20 token that do not require custom gateway.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0x20F1380A78492227A9B2366242335D684aF22507",
+              admin: "0x27ff92b30Cae00dABCF8045cc68fc9dcB67C5019"
+            },
+            upgradableBy: [ "ProxyAdmin" ],
+            upgradeDelay: "No delay"
+          }
+        }
+      ]
+    },
+    riskView: {
+      stateValidation: {
+        value: "In development",
+        description: "Currently the system permits invalid state roots. More details in project overview.",
+        sentiment: "bad"
+      },
+      dataAvailability: {
+        value: "On chain",
+        description: "All of the data needed for proof construction is published on chain.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x098927F692C86fA1722115652b9d2d7BE8cBa6D3#code#F1#L376"
+            ]
+          }
+        ]
+      },
+      upgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x098927F692C86fA1722115652b9d2d7BE8cBa6D3"
+            ]
+          }
+        ]
+      },
+      sequencerFailure: {
+        value: "Self sequence",
+        description: "In the event of a sequencer failure, users can force transactions to be included in the project's chain by sending them to L1. There is a 12h delay on this operation.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x098927F692C86fA1722115652b9d2d7BE8cBa6D3#code#F1#L376"
+            ]
+          }
+        ]
+      },
+      proposerFailure: {
+        value: "Cannot withdraw",
+        description: "Only the whitelisted proposers can publish state roots on L1, so in the event of failure the withdrawals are frozen.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "L2OutputOracle",
+            references: [ "https://etherscan.io/address/0x0af92E6944900abA4B9BAC1417bA13ED6F45c27f#code#F1#L186"
+            ]
+          }
+        ]
+      },
+      destinationToken: {
+        value: "Native & Canonical",
+        description: "ETH transferred via this bridge is used to pay for gas and other tokens transferred are considered canonical on the destination chain.",
+        sentiment: "good"
+      },
+      validatedBy: {
+        value: "Ethereum",
+        description: "Smart contracts on Ethereum validate all bridge transfers.",
+        sentiment: "good"
+      },
+      sourceUpgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x098927F692C86fA1722115652b9d2d7BE8cBa6D3"
+            ]
+          }
+        ]
+      }
+    },
+    stage: {
+      stage: "Stage 0",
+      missing: {
+        nextStage: "Stage 1",
+        requirements: [ "The proof system is still under development.", "Users' withdrawals can be censored by the permissioned operators.",
+          "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+        ]
+      },
+      summary: [
+        {
+          stage: "Stage 0",
+          requirements: [
+            {
+              satisfied: true,
+              description: "The project calls itself a rollup."
+            }, {
+              satisfied: true,
+              description: "L2 state roots are posted to Ethereum L1."
+            }, {
+              satisfied: true,
+              description: "Inputs for the state transition function are posted to L1."
+            },
+            {
+              satisfied: true,
+              description: "A source-available node exists that can recreate the state from L1 data."
+            }
+          ]
+        }, {
+          stage: "Stage 1",
+          requirements: [
+            {
+              satisfied: false,
+              description: "The proof system is still under development."
+            }, {
+              satisfied: false,
+              description: "Users' withdrawals can be censored by the permissioned operators."
+            },
+            {
+              satisfied: false,
+              description: "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+            }
+          ]
+        }, {
+          stage: "Stage 2",
+          requirements: [
+            {
+              satisfied: false,
+              description: "Upgrades unrelated to on-chain provable bugs provide less than 30d to exit."
+            }
+          ]
+        }
+      ]
+    },
+    technology: {
+      stateCorrectness: {
+        name: "Fraud proofs are in development",
+        description: "Ultimately, OP stack chains will use interactive fraud proofs to enforce state correctness. This feature is currently in development and the system permits invalid state roots.",
+        risks: [
+          {
+            category: "Funds can be stolen if",
+            text: "an invalid state root is submitted to the system.",
+            isCritical: true
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L141 - Etherscan source code, deleteL2Outputs function",
+            href: "https://etherscan.io/address/0x0af92E6944900abA4B9BAC1417bA13ED6F45c27f#code#F1#L141"
+          }
+        ]
+      },
+      dataAvailability: {
+        name: "All transaction data is recorded on chain",
+        description: "All executed transactions are submitted to an on chain smart contract. The execution of the rollup is based entirely on the submitted transactions, so anyone monitoring the contract can know the correct state of the rollup chain.",
+        risks: [],
+        references: [
+          {
+            text: "Derivation: Batch submission - OP Stack specs",
+            href: "https://github.com/ethereum-optimism/optimism/blob/develop/specs/derivation.md#batch-submission"
+          },
+          {
+            text: "BatchInbox - Etherscan address",
+            href: "https://etherscan.io/address/0x889e21d7BA3d6dD62e75d4980A4Ad1349c61599d"
+          },
+          {
+            text: "OptimismPortal.sol#L434 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x098927F692C86fA1722115652b9d2d7BE8cBa6D3#code#F1#L376"
+          }
+        ]
+      },
+      operator: {
+        name: "The system has a centralized operator",
+        description: "The operator is the only entity that can propose blocks. A live and trustworthy operator is vital to the health of the system.",
+        risks: [
+          {
+            category: "MEV can be extracted if",
+            text: "the operator exploits their centralized position and frontruns user transactions."
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L30 - Etherscan source code, CHALLENGER address",
+            href: "https://etherscan.io/address/0x0af92E6944900abA4B9BAC1417bA13ED6F45c27f#code#F1#L30"
+          },
+          {
+            text: "L2OutputOracle.sol#L35 - Etherscan source code, PROPOSER address",
+            href: "https://etherscan.io/address/0x0af92E6944900abA4B9BAC1417bA13ED6F45c27f#code#F1#L35"
+          },
+          {
+            text: "Decentralizing the sequencer - OP Stack docs",
+            href: "https://community.optimism.io/docs/protocol/#decentralizing-the-sequencer"
+          }
+        ]
+      },
+      forceTransactions: {
+        name: "Users can force any transaction",
+        description: "Because the state of the system is based on transactions submitted on-chain and anyone can submit their transactions there it allows the users to circumvent censorship by interacting with the smart contract directly.",
+        risks: [],
+        references: [
+          {
+            text: "OptimismPortal.sol#L434 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x098927F692C86fA1722115652b9d2d7BE8cBa6D3#code#F1#L376"
+          }
+        ]
+      },
+      exitMechanisms: [
+        {
+          name: "Regular exit",
+          description: "The user initiates the withdrawal by submitting a regular transaction on this chain. When the block containing that transaction is finalized the funds become available for withdrawal on L1. The process of block finalization usually takes several days to complete. Finally the user submits an L1 transaction to claim the funds. This transaction requires a merkle proof.",
+          risks: [
+            {
+              category: "Funds can be frozen if",
+              text: "the centralized validator goes down. Users cannot produce blocks themselves and exiting the system requires new block production.",
+              isCritical: true
+            }
+          ],
+          references: [
+            {
+              text: "OptimismPortal.sol#L242 - Etherscan source code, proveWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x098927F692C86fA1722115652b9d2d7BE8cBa6D3#code#F1#L190"
+            },
+            {
+              text: "OptimismPortal.sol#325 - Etherscan source code, finalizeWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x098927F692C86fA1722115652b9d2d7BE8cBa6D3#code#F1#L270"
+            },
+            {
+              text: "L2OutputOracle.sol#L185 - Etherscan source code, PROPOSER check",
+              href: "https://etherscan.io/address/0x0af92E6944900abA4B9BAC1417bA13ED6F45c27f#code#F1#L185"
+            }
+          ]
+        }
+      ],
+      smartContracts: {
+        name: "EVM compatible smart contracts are supported",
+        description: "OP stack chains are pursuing the EVM Equivalence model. No changes to smart contracts are required regardless of the language they are written in, i.e. anything deployed on L1 can be deployed on L2.",
+        risks: [],
+        references: [
+          {
+            text: "Introducing EVM Equivalence",
+            href: "https://medium.com/ethereum-optimism/introducing-evm-equivalence-5c2021deb306"
+          }
+        ]
+      }
+    },
+    permissions: [
+      {
+        name: "PGNMultiSig",
+        description: "This address is the owner of the following contracts: ProxyAdmin, SystemConfig. It is also designated as a Guardian of the OptimismPortal, meaning it can halt withdrawals. It can upgrade the bridge implementation potentially gaining access to all funds, and change the sequencer, state root proposer or any other system component (unlimited upgrade power). This is a Gnosis Safe with 3 / 5 threshold.",
+        accounts: [
+          {
+            address: "0x4a4962275DF8C60a80d3a25faEc5AA7De116A746",
+            type: "MultiSig"
+          }
+        ]
+      }, {
+        name: "PGNMultiSig participants",
+        description: "Those are the participants of the PGNMultiSig.",
+        accounts: [
+          {
+            address: "0x3840f487A17A41100DD1Bf0946c34f132a57Fd5f",
+            type: "EOA"
+          }, {
+            address: "0xa0C600a6e85bf225958FFAcC70B5FDDF9A059038",
+            type: "EOA"
+          }, {
+            address: "0xefCf0c8faFB425997870f845e26fC6cA6EE6dD5C",
+            type: "EOA"
+          }, {
+            address: "0x4D8007a0E9f293e62E2b0F43C6Cf4C4B9e135BAe",
+            type: "EOA"
+          }, {
+            address: "0x5553a23a71Bc7985c8E58Ca08072D2Fa9D1D1F4c",
+            type: "EOA"
+          }
+        ],
+        references: undefined
+      }, {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0x27ff92b30Cae00dABCF8045cc68fc9dcB67C5019",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the OptimismPortal, L2OutputOracle, SystemConfig, L1StandardBridge, AddressManager proxies. It’s controlled by the PGNMultiSig."
+      },
+      {
+        name: "Sequencer",
+        accounts: [
+          {
+            address: "0x889e21d7BA3d6dD62e75d4980A4Ad1349c61599d",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to commit L2 transactions to L1"
+      }, {
+        name: "Proposer",
+        accounts: [
+          {
+            address: "0x75ACb7ae6C76B3f5cA049431FE2c0797dD002b90",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to post new L2 state roots to L1"
+      }, {
+        name: "Challenger",
+        accounts: [
+          {
+            address: "0x4a4962275DF8C60a80d3a25faEc5AA7De116A746",
+            type: "MultiSig"
+          }
+        ],
+        description: "Central actor allowed to delete L2 state roots proposed by a Proposer. Currently Challenger is PGNMultiSig"
+      },
+      {
+        name: "Guardian",
+        accounts: [
+          {
+            address: "0x4a4962275DF8C60a80d3a25faEc5AA7De116A746",
+            type: "MultiSig"
+          }
+        ],
+        description: "Central actor allowed to pause deposits and withdrawals. Currently Guardian is PGNMultiSig"
+      }
+    ],
+    contracts: {
+      addresses: [
+        {
+          name: "L2OutputOracle",
+          address: "0x909E51211e959339EFb14b36f5A50955a8ae3770",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x0af92E6944900abA4B9BAC1417bA13ED6F45c27f",
+            admin: "0x27ff92b30Cae00dABCF8045cc68fc9dcB67C5019"
+          },
+          description: "The L2OutputOracle contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "OptimismPortal",
+          address: "0x787A0ACaB02437c60Aafb1a29167A3609801e320",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x098927F692C86fA1722115652b9d2d7BE8cBa6D3",
+            admin: "0x27ff92b30Cae00dABCF8045cc68fc9dcB67C5019"
+          },
+          description: "The OptimismPortal contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "SystemConfig",
+          address: "0xF761Cc49bB127AB666899b41CDC4E62fA50cD9ca",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0xA872bca05c9F8A97CC36D879e43B33dB8ed7b69E",
+            admin: "0x27ff92b30Cae00dABCF8045cc68fc9dcB67C5019"
+          },
+          description: "It contains configuration parameters such as the Sequencer address, the L2 gas limit and the unsafe block signer address.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "L1CrossDomainMessenger",
+          address: "0x11dd2d9B5ec142dbAFBEFEA82a75985Eae4e12b0",
+          upgradeability: {
+            type: "resolved delegate proxy",
+            addressManager: "0x7a616b25E7c96fc4d652966d7DDAbB51dE28eCc1",
+            implementationName: "OVM_L1CrossDomainMessenger",
+            implementation: "0x8CfF5bDb1B428B979E3D87087dA8549A28065DDB"
+          },
+          description: "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "L1StandardBridge",
+          address: "0x4082C9647c098a6493fb499EaE63b5ce3259c574",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x20F1380A78492227A9B2366242335D684aF22507",
+            admin: "0x27ff92b30Cae00dABCF8045cc68fc9dcB67C5019"
+          },
+          description: "The L1StandardBridge contract is the main entry point to deposit ERC20 tokens from L1 to L2.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }
+      ],
+      risks: [
+        {
+          category: "Funds can be stolen if",
+          text: "a contract receives a malicious code upgrade. There is no delay on code upgrades.",
+          isCritical: true
+        }
+      ]
+    },
+    knowledgeNuggets: [
+      {
+        title: "How Optimism compresses data",
+        url: "https://twitter.com/bkiepuszewski/status/1508740414492323840?s=20&t=vMgR4jW1ssap-A-MBsO4Jw",
+        thumbnail: "l2beat-03.jpg"
+      }, {
+        title: "Bedrock Explainer",
+        url: "https://community.optimism.io/docs/developers/bedrock/explainer/",
+        thumbnail: "optimism-04.jpg"
+      }, {
+        title: "Modular Rollup Theory",
+        url: "https://www.youtube.com/watch?v=jnVjhp41pcc",
+        thumbnail: "modular-rollup.jpg"
+      }
+    ],
+    milestones: [
+      {
+        name: "Aevo Open Mainnet Launch",
+        link: "https://aevo.mirror.xyz/hV7VYkpk7caoYl2DbOFcSaZRRrK-8NeWqKczrgUff6k",
+        date: "2023-06-14T00:00:00.00Z",
+        description: "Aevo removed the whitelist and opened the mainnet to the public."
+      }
+    ]
+  }, {
+    type: "layer2",
+    id: "base",
+    display: {
+      name: "Base",
+      slug: "base",
+      warning: "Fraud proof system is currently under development. Users need to trust the block proposer to submit correct L1 state roots.",
+      description: "Base is an Optimistic Rollup that has been developed on the Ethereum network, utilizing OP Stack technology.",
+      purpose: "Universal",
+      category: "Optimistic Rollup",
+      provider: "OP Stack",
+      links: {
+        websites: [ "https://base.org/" ],
+        apps: [ "https://bridge.base.org/" ],
+        documentation: [ "https://docs.base.org/", "https://stack.optimism.io/" ],
+        explorers: [ "https://basescan.org/", "https://base.blockscout.com/" ],
+        repositories: [ "https://github.com/base-org" ],
+        socialMedia: [ "https://twitter.com/BuildOnBase", "https://discord.gg/buildonbase",
+          "https://base.mirror.xyz/" ]
+      },
+      activityDataSource: "Blockchain RPC"
+    },
+    config: {
+      tokenList: [
+        {
+          id: "base:usdc-usd-coin",
+          name: "USD Coin",
+          symbol: "USDC",
+          decimals: 6,
+          iconUrl: "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
+          address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          coingeckoId: "usd-coin",
+          sinceTimestamp: {
+            timestamp: 1692383789,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          category: "stablecoin",
+          type: "NMV",
+          formula: "totalSupply",
+          chainId: 8453
+        }, {
+          id: "base:sdex-smardex",
+          name: "SmarDex",
+          symbol: "SDEX",
+          decimals: 18,
+          iconUrl: "https://assets.coingecko.com/coins/images/29470/large/SDEX_logo_transparent.png?1690430205",
+          address: "0xFd4330b0312fdEEC6d4225075b82E00493FF2e3f",
+          coingeckoId: "smardex",
+          sinceTimestamp: {
+            timestamp: 1691501141,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          category: "other",
+          type: "EBV",
+          formula: "totalSupply",
+          bridgedUsing: {
+            bridge: "Wormhole",
+            slug: "portal"
+          },
+          chainId: 8453
+        }
+      ],
+      escrows: [
+        {
+          address: "0x49048044D57e1C92A77f79988d21Fa8fAF74E97e",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1686793895,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: [ "ETH" ],
+          contract: {
+            name: "OptimismPortal",
+            description: "Main entry point for users depositing ETH.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0x5FB30336A8d0841cf15d452afA297cB6D10877D7",
+              admin: "0x0475cBCAebd9CE8AfA5025828d5b98DFb67E059E"
+            },
+            upgradableBy: [ "ProxyAdmin" ],
+            upgradeDelay: "No delay"
+          }
+        }, {
+          address: "0x3154Cf16ccdb4C6d922629664174b904d80F2C35",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1686793895,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: "*",
+          contract: {
+            name: "L1StandardBridge",
+            description: "Main entry point for users depositing ERC20 token that do not require custom gateway.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0x3F3C0F6bC115E698E35038E1759E9c31032E590c",
+              admin: "0x0475cBCAebd9CE8AfA5025828d5b98DFb67E059E"
+            },
+            upgradableBy: [ "ProxyAdmin" ],
+            upgradeDelay: "No delay"
+          }
+        }
+      ],
+      transactionApi: {
+        type: "rpc",
+        startBlock: 1,
+        url: "https://developer-access-mainnet.base.org",
+        callsPerMinute: 1500,
+        assessCount: [Function]
+      }
+    },
+    riskView: {
+      stateValidation: {
+        value: "In development",
+        description: "Currently the system permits invalid state roots. More details in project overview.",
+        sentiment: "bad"
+      },
+      dataAvailability: {
+        value: "On chain",
+        description: "All of the data needed for proof construction is published on chain.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x5FB30336A8d0841cf15d452afA297cB6D10877D7#code#F1#L434"
+            ]
+          }
+        ]
+      },
+      upgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x49048044D57e1C92A77f79988d21Fa8fAF74E97e"
+            ]
+          }
+        ]
+      },
+      sequencerFailure: {
+        value: "Self sequence",
+        description: "In the event of a sequencer failure, users can force transactions to be included in the project's chain by sending them to L1. There is a 12h delay on this operation.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x5FB30336A8d0841cf15d452afA297cB6D10877D7#code#F1#L434"
+            ]
+          }
+        ]
+      },
+      proposerFailure: {
+        value: "Cannot withdraw",
+        description: "Only the whitelisted proposers can publish state roots on L1, so in the event of failure the withdrawals are frozen.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "L2OutputOracle",
+            references: [ "https://etherscan.io/address/0xf2460D3433475C8008ceFfe8283F07EB1447E39a#code#F1#L186"
+            ]
+          }
+        ]
+      },
+      destinationToken: {
+        value: "Native & Canonical",
+        description: "ETH transferred via this bridge is used to pay for gas and other tokens transferred are considered canonical on the destination chain.",
+        sentiment: "good"
+      },
+      validatedBy: {
+        value: "Ethereum",
+        description: "Smart contracts on Ethereum validate all bridge transfers.",
+        sentiment: "good"
+      },
+      sourceUpgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x49048044D57e1C92A77f79988d21Fa8fAF74E97e"
+            ]
+          }
+        ]
+      }
+    },
+    stage: {
+      stage: "Stage 0",
+      missing: {
+        nextStage: "Stage 1",
+        requirements: [ "The proof system is still under development.", "Users' withdrawals can be censored by the permissioned operators.",
+          "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+        ]
+      },
+      summary: [
+        {
+          stage: "Stage 0",
+          requirements: [
+            {
+              satisfied: true,
+              description: "The project calls itself a rollup."
+            }, {
+              satisfied: true,
+              description: "L2 state roots are posted to Ethereum L1."
+            }, {
+              satisfied: true,
+              description: "Inputs for the state transition function are posted to L1."
+            },
+            {
+              satisfied: true,
+              description: "A source-available node exists that can recreate the state from L1 data."
+            }
+          ]
+        }, {
+          stage: "Stage 1",
+          requirements: [
+            {
+              satisfied: false,
+              description: "The proof system is still under development."
+            }, {
+              satisfied: false,
+              description: "Users' withdrawals can be censored by the permissioned operators."
+            },
+            {
+              satisfied: false,
+              description: "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+            }
+          ]
+        }, {
+          stage: "Stage 2",
+          requirements: [
+            {
+              satisfied: false,
+              description: "Upgrades unrelated to on-chain provable bugs provide less than 30d to exit."
+            }
+          ]
+        }
+      ]
+    },
+    technology: {
+      stateCorrectness: {
+        name: "Fraud proofs are in development",
+        description: "Ultimately, OP stack chains will use interactive fraud proofs to enforce state correctness. This feature is currently in development and the system permits invalid state roots.",
+        risks: [
+          {
+            category: "Funds can be stolen if",
+            text: "an invalid state root is submitted to the system.",
+            isCritical: true
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L141 - Etherscan source code, deleteL2Outputs function",
+            href: "https://etherscan.io/address/0x7237343c2A746Aa2940E5E4Fbd53eaFBF3049DcA#code#F1#L141"
+          }
+        ]
+      },
+      dataAvailability: {
+        name: "All transaction data is recorded on chain",
+        description: "All executed transactions are submitted to an on chain smart contract. The execution of the rollup is based entirely on the submitted transactions, so anyone monitoring the contract can know the correct state of the rollup chain.",
+        risks: [],
+        references: [
+          {
+            text: "BatchInbox - Etherscan address",
+            href: "https://etherscan.io/address/0xff00000000000000000000000000000000008453"
+          },
+          {
+            text: "OptimismPortal.sol#L434 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x5FB30336A8d0841cf15d452afA297cB6D10877D7#code#F1#L434"
+          }
+        ]
+      },
+      operator: {
+        name: "The system has a centralized operator",
+        description: "The operator is the only entity that can propose blocks. A live and trustworthy operator is vital to the health of the system.",
+        risks: [
+          {
+            category: "MEV can be extracted if",
+            text: "the operator exploits their centralized position and frontruns user transactions."
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L30 - Etherscan source code, CHALLENGER address",
+            href: "https://etherscan.io/address/0x7237343c2A746Aa2940E5E4Fbd53eaFBF3049DcA#code#F1#L30"
+          },
+          {
+            text: "L2OutputOracle.sol#L35 - Etherscan source code, PROPOSER address",
+            href: "https://etherscan.io/address/0x7237343c2A746Aa2940E5E4Fbd53eaFBF3049DcA#code#F1#L35"
+          },
+          {
+            text: "Decentralizing the sequencer - OP Stack docs",
+            href: "https://community.optimism.io/docs/protocol/#decentralizing-the-sequencer"
+          }
+        ]
+      },
+      forceTransactions: {
+        name: "Users can force any transaction",
+        description: "Because the state of the system is based on transactions submitted on-chain and anyone can submit their transactions there it allows the users to circumvent censorship by interacting with the smart contract directly.",
+        risks: [],
+        references: [
+          {
+            text: "OptimismPortal.sol#L434 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x5FB30336A8d0841cf15d452afA297cB6D10877D7#code#F1#L434"
+          }
+        ]
+      },
+      exitMechanisms: [
+        {
+          name: "Regular exit",
+          description: "The user initiates the withdrawal by submitting a regular transaction on this chain. When the block containing that transaction is finalized the funds become available for withdrawal on L1. The process of block finalization usually takes several days to complete. Finally the user submits an L1 transaction to claim the funds. This transaction requires a merkle proof.",
+          risks: [
+            {
+              category: "Funds can be frozen if",
+              text: "the centralized validator goes down. Users cannot produce blocks themselves and exiting the system requires new block production.",
+              isCritical: true
+            }
+          ],
+          references: [
+            {
+              text: "OptimismPortal.sol#L242 - Etherscan source code, proveWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x5FB30336A8d0841cf15d452afA297cB6D10877D7#code#F1#L242"
+            },
+            {
+              text: "OptimismPortal.sol#325 - Etherscan source code, finalizeWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x5FB30336A8d0841cf15d452afA297cB6D10877D7#code#F1#L325"
+            },
+            {
+              text: "L2OutputOracle.sol#L185 - Etherscan source code, PROPOSER check",
+              href: "https://etherscan.io/address/0x7237343c2A746Aa2940E5E4Fbd53eaFBF3049DcA#code#F1#L185"
+            }
+          ]
+        }
+      ],
+      smartContracts: {
+        name: "EVM compatible smart contracts are supported",
+        description: "OP stack chains are pursuing the EVM Equivalence model. No changes to smart contracts are required regardless of the language they are written in, i.e. anything deployed on L1 can be deployed on L2.",
+        risks: [],
+        references: [
+          {
+            text: "Introducing EVM Equivalence",
+            href: "https://medium.com/ethereum-optimism/introducing-evm-equivalence-5c2021deb306"
+          }
+        ]
+      }
+    },
+    permissions: [
+      {
+        name: "AdminMultisig",
+        description: "This address is the owner of the ProxyAdmin. It can upgrade the bridge implementation potentially gaining access to all funds. This is a Gnosis Safe with 2 / 2 threshold.",
+        accounts: [
+          {
+            address: "0x7bB41C3008B3f03FE483B28b8DB90e19Cf07595c",
+            type: "MultiSig"
+          }
+        ]
+      }, {
+        name: "AdminMultisig participants",
+        description: "Those are the participants of the AdminMultisig.",
+        accounts: [
+          {
+            address: "0x9855054731540A48b28990B63DcF4f33d8AE46A1",
+            type: "MultiSig"
+          }, {
+            address: "0x9BA6e03D8B90dE867373Db8cF1A58d2F7F006b3A",
+            type: "MultiSig"
+          }
+        ],
+        references: undefined
+      }, {
+        name: "GuardianMultisig",
+        description: "Address designated as a Guardian of the OptimismPortal, meaning it can halt withdrawals. It's the owner of SystemConfig, which allows to update the sequencer address. Moreover, it can challenge state roots without going through the fault proof process. This is a Gnosis Safe with 3 / 6 threshold.",
+        accounts: [
+          {
+            address: "0x14536667Cd30e52C0b458BaACcB9faDA7046E056",
+            type: "MultiSig"
+          }
+        ]
+      }, {
+        name: "GuardianMultisig participants",
+        description: "Those are the participants of the GuardianMultisig.",
+        accounts: [
+          {
+            address: "0xa3D3c103442F162856163d564b983ae538c6202D",
+            type: "EOA"
+          }, {
+            address: "0x8e5de5cA219e3FFC9cdEb2Dc7D71B8a199cd2C4F",
+            type: "EOA"
+          }, {
+            address: "0x969ffD102fbF304d4e401999333FE9397DaC653D",
+            type: "EOA"
+          }, {
+            address: "0xa7a5e47D3959bf134e3EcdEb1f62e054f0D58a18",
+            type: "EOA"
+          }, {
+            address: "0xBECAbd620cb6675f73C92bc444F7faCddf204DE2",
+            type: "EOA"
+          }, {
+            address: "0x49243DcE94e0f5A1B08b9556bBEc5a84363c3839",
+            type: "EOA"
+          }
+        ],
+        references: undefined
+      }, {
+        name: "BaseMultisig",
+        description: "Core multisig of the Base team, it's a member of the AdminMultisig, meaning it can upgrade the bridge implementation potentially gaining access to all funds. This is a Gnosis Safe with 3 / 6 threshold.",
+        accounts: [
+          {
+            address: "0x9855054731540A48b28990B63DcF4f33d8AE46A1",
+            type: "MultiSig"
+          }
+        ]
+      }, {
+        name: "BaseMultisig participants",
+        description: "Those are the participants of the BaseMultisig.",
+        accounts: [
+          {
+            address: "0x6CD3850756b7894774Ab715D136F9dD02837De50",
+            type: "EOA"
+          }, {
+            address: "0x3cd692eCE8b6573A2220ae00d0dEb98f0DfFA9a1",
+            type: "EOA"
+          }, {
+            address: "0x1d0D1f61137E457d4CF13146bBFA9F07B33f8Ec5",
+            type: "EOA"
+          }, {
+            address: "0x3Dad2200849925Bb46d9bF05aFa5f7F213F4c18E",
+            type: "EOA"
+          }, {
+            address: "0xB011a32ED8b4F70D9943A2199F539bbeCd7b62F7",
+            type: "EOA"
+          }, {
+            address: "0xf9e320f3dA12E68af219d9E2A490Dd649f6B177c",
+            type: "EOA"
+          }
+        ],
+        references: undefined
+      }, {
+        name: "OptimismMultisig",
+        description: "Core multisig of the Optimism team, it can challenge state roots without going through the fault proof process. It's also a member of the AdminMultisig, meaning it can upgrade the bridge implementation potentially gaining access to all funds. This is a Gnosis Safe with 5 / 7 threshold.",
+        accounts: [
+          {
+            address: "0x9BA6e03D8B90dE867373Db8cF1A58d2F7F006b3A",
+            type: "MultiSig"
+          }
+        ]
+      }, {
+        name: "OptimismMultisig participants",
+        description: "Those are the participants of the OptimismMultisig.",
+        accounts: [
+          {
+            address: "0x42d27eEA1AD6e22Af6284F609847CB3Cd56B9c64",
+            type: "Contract"
+          }, {
+            address: "0x3041BA32f451F5850c147805F5521AC206421623",
+            type: "EOA"
+          }, {
+            address: "0xE7dEA1306D9F829bA469d1904c50903b46ebd02e",
+            type: "EOA"
+          }, {
+            address: "0xBF93D4d727F7Ba1F753E1124C3e532dCb04Ea2c8",
+            type: "EOA"
+          }, {
+            address: "0x4D014f3c5F33Aa9Cd1Dc29ce29618d07Ae666d15",
+            type: "EOA"
+          }, {
+            address: "0x7cB07FE039a92B3D784f284D919503A381BEC54f",
+            type: "EOA"
+          }, {
+            address: "0x9bbFB9919062C29a5eE15aCD93c9D7c3b14d31aa",
+            type: "EOA"
+          }
+        ],
+        references: undefined
+      }, {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0x0475cBCAebd9CE8AfA5025828d5b98DFb67E059E",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the OptimismPortal, L1ERC721Bridge, L2OutputOracle, OptimismMintableERC20Factory, L1StandardBridge, AddressManager, SystemConfig proxies. It's controlled by the AdminMultisig."
+      },
+      {
+        name: "Sequencer",
+        accounts: [
+          {
+            address: "0x5050F69a9786F081509234F1a7F4684b5E5b76C9",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to commit L2 transactions to L1."
+      }, {
+        name: "Proposer",
+        accounts: [
+          {
+            address: "0x642229f238fb9dE03374Be34B0eD8D9De80752c5",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to post new L2 state roots to L1."
+      }
+    ],
+    contracts: {
+      addresses: [
+        {
+          name: "L2OutputOracle",
+          address: "0x56315b90c40730925ec5485cf004d835058518A0",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0xf2460D3433475C8008ceFfe8283F07EB1447E39a",
+            admin: "0x0475cBCAebd9CE8AfA5025828d5b98DFb67E059E"
+          },
+          description: "The L2OutputOracle contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "OptimismPortal",
+          address: "0x49048044D57e1C92A77f79988d21Fa8fAF74E97e",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x5FB30336A8d0841cf15d452afA297cB6D10877D7",
+            admin: "0x0475cBCAebd9CE8AfA5025828d5b98DFb67E059E"
+          },
+          description: "The OptimismPortal contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "SystemConfig",
+          address: "0x73a79Fab69143498Ed3712e519A88a918e1f4072",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x6481ff79597Fe4F77E1063f615ec5BDaDDEFfd4B",
+            admin: "0x0475cBCAebd9CE8AfA5025828d5b98DFb67E059E"
+          },
+          description: "It contains configuration parameters such as the Sequencer address, the L2 gas limit and the unsafe block signer address.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "L1CrossDomainMessenger",
+          address: "0x866E82a600A1414e583f7F13623F1aC5d58b0Afa",
+          upgradeability: {
+            type: "resolved delegate proxy",
+            addressManager: "0x8EfB6B5c4767B09Dc9AA6Af4eAA89F749522BaE2",
+            implementationName: "OVM_L1CrossDomainMessenger",
+            implementation: "0x81C4Bd600793EBd1C0323604E1F455fE50A951F8"
+          },
+          description: "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "L1ERC721Bridge",
+          address: "0x608d94945A64503E642E6370Ec598e519a2C1E53",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x3311aC7F72bb4108d9f4D5d50E7623B1498A9eC0",
+            admin: "0x0475cBCAebd9CE8AfA5025828d5b98DFb67E059E"
+          },
+          description: "The L1ERC721Bridge contract is the main entry point to deposit ERC721 tokens from L1 to L2.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "Challenger1of2",
+          address: "0x6F8C5bA3F59ea3E76300E3BEcDC231D656017824",
+          upgradeability: {
+            type: "immutable"
+          },
+          description: "This contract is the permissioned challenger of the system. It can delete non finalized roots without going through the fault proof process. It is functionally equivalent to a 1/2 multisig where neither party can remove the other's permission to execute a Challenger call. It is controlled by the GuardianMultisig and the OptimismMultisig."
+        }
+      ],
+      risks: [
+        {
+          category: "Funds can be stolen if",
+          text: "a contract receives a malicious code upgrade. There is no delay on code upgrades.",
+          isCritical: true
+        }
+      ]
+    },
+    milestones: [
+      {
+        name: "Base Mainnet Launch",
+        link: "https://base.mirror.xyz/hwNwqXHVoLlO8s4DZppog4DfGvM34tigaDjOWuEJQfY",
+        date: "2023-07-13T00:00:00.00Z",
+        description: "Base is live on mainnet."
+      }
+    ],
+    knowledgeNuggets: [
+      {
+        title: "How Optimism compresses data",
+        url: "https://twitter.com/bkiepuszewski/status/1508740414492323840?s=20&t=vMgR4jW1ssap-A-MBsO4Jw",
+        thumbnail: "l2beat-03.jpg"
+      }, {
+        title: "Bedrock Explainer",
+        url: "https://community.optimism.io/docs/developers/bedrock/explainer/",
+        thumbnail: "optimism-04.jpg"
+      }, {
+        title: "Modular Rollup Theory",
+        url: "https://www.youtube.com/watch?v=jnVjhp41pcc",
+        thumbnail: "modular-rollup.jpg"
+      }
+    ]
+  }, {
+    type: "layer2",
+    id: "mantapacific",
+    display: {
+      name: "Manta Pacific",
+      slug: "mantapacific",
+      description: "Manta Pacific is an optimistic rollup empowering EVM-native zero-knowledge (ZK) applications and general dapps with a scalable, cost-effective environment to deploy simply using Solidity. Manta Pacific plans to eventually leverage Celestia for data availability to lower gas costs for users across all applications in its ecosystem.",
+      purpose: "Universal",
+      category: "Optimistic Rollup",
+      provider: "OP Stack",
+      links: {
+        websites: [ "https://pacific.manta.network/" ],
+        apps: [ "https://pacific-bridge.manta.network/" ],
+        documentation: [ "https://docs.manta.network/" ],
+        explorers: [ "https://pacific-explorer.manta.network/" ],
+        repositories: [ "https://github.com/Manta-Network" ],
+        socialMedia: [ "https://discord.gg/mantanetwork", "https://twitter.com/MantaNetwork",
+          "https://medium.com/@mantanetwork" ]
+      },
+      activityDataSource: "Blockchain RPC"
+    },
+    config: {
+      escrows: [
+        {
+          address: "0x9168765EE952de7C6f8fC6FaD5Ec209B960b7622",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1694224871,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: [ "ETH" ],
+          contract: {
+            name: "OptimismPortal",
+            description: "Main entry point for users depositing ETH.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0x445c62F4948f3B08a6bB1DbC51Ef985b3Eb199F1",
+              admin: "0xa2DCa85BB892De55D8B262d1806114733106e8D1"
+            },
+            upgradableBy: undefined,
+            upgradeDelay: undefined
+          }
+        }, {
+          address: "0x3B95bC951EE0f553ba487327278cAc44f29715E5",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1694224907,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: "*",
+          contract: {
+            name: "L1StandardBridge",
+            description: "Main entry point for users depositing ERC20 token that do not require custom gateway.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0x62b257A1b1fC81c4e6E5Dc5b47F1E6184341Cd58",
+              admin: "0xa2DCa85BB892De55D8B262d1806114733106e8D1"
+            },
+            upgradableBy: undefined,
+            upgradeDelay: undefined
+          }
+        }
+      ],
+      transactionApi: {
+        type: "rpc",
+        startBlock: 1,
+        url: "https://pacific-rpc.manta.network/http",
+        callsPerMinute: 1500,
+        assessCount: [Function]
+      }
+    },
+    riskView: {
+      stateValidation: {
+        value: "In development",
+        description: "Currently the system permits invalid state roots. More details in project overview.",
+        sentiment: "bad"
+      },
+      dataAvailability: {
+        value: "On chain",
+        description: "All of the data needed for proof construction is published on chain.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x445c62F4948f3B08a6bB1DbC51Ef985b3Eb199F1#code#F1#L376"
+            ]
+          }
+        ]
+      },
+      upgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x9168765EE952de7C6f8fC6FaD5Ec209B960b7622"
+            ]
+          }
+        ]
+      },
+      sequencerFailure: {
+        value: "Self sequence",
+        description: "In the event of a sequencer failure, users can force transactions to be included in the project's chain by sending them to L1. There is a 12h delay on this operation.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x445c62F4948f3B08a6bB1DbC51Ef985b3Eb199F1#code#F1#L376"
+            ]
+          }
+        ]
+      },
+      proposerFailure: {
+        value: "Cannot withdraw",
+        description: "Only the whitelisted proposers can publish state roots on L1, so in the event of failure the withdrawals are frozen.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "L2OutputOracle",
+            references: [ "https://etherscan.io/address/0x1E5e634981564fc645dcbC6546aE618d7870B30a#code#F1#L186"
+            ]
+          }
+        ]
+      },
+      destinationToken: {
+        value: "Native & Canonical",
+        description: "ETH transferred via this bridge is used to pay for gas and other tokens transferred are considered canonical on the destination chain.",
+        sentiment: "good"
+      },
+      validatedBy: {
+        value: "Ethereum",
+        description: "Smart contracts on Ethereum validate all bridge transfers.",
+        sentiment: "good"
+      },
+      sourceUpgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x9168765EE952de7C6f8fC6FaD5Ec209B960b7622"
+            ]
+          }
+        ]
+      }
+    },
+    stage: {
+      stage: "Stage 0",
+      missing: {
+        nextStage: "Stage 1",
+        requirements: [ "The proof system is still under development.", "Users' withdrawals can be censored by the permissioned operators.",
+          "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+        ]
+      },
+      summary: [
+        {
+          stage: "Stage 0",
+          requirements: [
+            {
+              satisfied: true,
+              description: "The project calls itself a rollup."
+            }, {
+              satisfied: true,
+              description: "L2 state roots are posted to Ethereum L1."
+            }, {
+              satisfied: true,
+              description: "Inputs for the state transition function are posted to L1."
+            },
+            {
+              satisfied: true,
+              description: "A source-available node exists that can recreate the state from L1 data."
+            }
+          ]
+        }, {
+          stage: "Stage 1",
+          requirements: [
+            {
+              satisfied: false,
+              description: "The proof system is still under development."
+            }, {
+              satisfied: false,
+              description: "Users' withdrawals can be censored by the permissioned operators."
+            },
+            {
+              satisfied: false,
+              description: "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+            }
+          ]
+        }, {
+          stage: "Stage 2",
+          requirements: [
+            {
+              satisfied: false,
+              description: "Upgrades unrelated to on-chain provable bugs provide less than 30d to exit."
+            }
+          ]
+        }
+      ]
+    },
+    technology: {
+      stateCorrectness: {
+        name: "Fraud proofs are in development",
+        description: "Ultimately, OP stack chains will use interactive fraud proofs to enforce state correctness. This feature is currently in development and the system permits invalid state roots.",
+        risks: [
+          {
+            category: "Funds can be stolen if",
+            text: "an invalid state root is submitted to the system.",
+            isCritical: true
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L141 - Etherscan source code, deleteL2Outputs function",
+            href: "https://etherscan.io/address/0x1E5e634981564fc645dcbC6546aE618d7870B30a#code#F1#L141"
+          }
+        ]
+      },
+      dataAvailability: {
+        name: "All transaction data is recorded on chain",
+        description: "All executed transactions are submitted to an on chain smart contract. The execution of the rollup is based entirely on the submitted transactions, so anyone monitoring the contract can know the correct state of the rollup chain.",
+        risks: [],
+        references: [
+          {
+            text: "Derivation: Batch submission - OP Stack specs",
+            href: "https://github.com/ethereum-optimism/optimism/blob/develop/specs/derivation.md#batch-submission"
+          },
+          {
+            text: "BatchInbox - Etherscan address",
+            href: "https://etherscan.io/address/0xaeba8e2307a22b6824a9a7a39f8b016c357cd1fe"
+          },
+          {
+            text: "OptimismPortal.sol#L376 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x445c62F4948f3B08a6bB1DbC51Ef985b3Eb199F1#code#F1#L376"
+          }
+        ]
+      },
+      operator: {
+        name: "The system has a centralized operator",
+        description: "The operator is the only entity that can propose blocks. A live and trustworthy operator is vital to the health of the system.",
+        risks: [
+          {
+            category: "MEV can be extracted if",
+            text: "the operator exploits their centralized position and frontruns user transactions."
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L30 - Etherscan source code, CHALLENGER address",
+            href: "https://etherscan.io/address/0x1E5e634981564fc645dcbC6546aE618d7870B30a#code#F1#L30"
+          },
+          {
+            text: "L2OutputOracle.sol#L35 - Etherscan source code, PROPOSER address",
+            href: "https://etherscan.io/address/0x1E5e634981564fc645dcbC6546aE618d7870B30a#code#F1#L35"
+          },
+          {
+            text: "Decentralizing the sequencer - OP Stack docs",
+            href: "https://community.optimism.io/docs/protocol/#decentralizing-the-sequencer"
+          }
+        ]
+      },
+      forceTransactions: {
+        name: "Users can force any transaction",
+        description: "Because the state of the system is based on transactions submitted on-chain and anyone can submit their transactions there it allows the users to circumvent censorship by interacting with the smart contract directly.",
+        risks: [],
+        references: [
+          {
+            text: "Sequencing Window - OP Stack specs",
+            href: "https://github.com/ethereum-optimism/optimism/blob/develop/specs/glossary.md#sequencing-window"
+          },
+          {
+            text: "OptimismPortal.sol#L376 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x445c62F4948f3B08a6bB1DbC51Ef985b3Eb199F1#code#F1#L376"
+          }
+        ]
+      },
+      exitMechanisms: [
+        {
+          name: "Regular exit",
+          description: "The user initiates the withdrawal by submitting a regular transaction on this chain. When the block containing that transaction is finalized the funds become available for withdrawal on L1. The process of block finalization usually takes several days to complete. Finally the user submits an L1 transaction to claim the funds. This transaction requires a merkle proof.",
+          risks: [
+            {
+              category: "Funds can be frozen if",
+              text: "the centralized validator goes down. Users cannot produce blocks themselves and exiting the system requires new block production.",
+              isCritical: true
+            }
+          ],
+          references: [
+            {
+              text: "OptimismPortal.sol#L242 - Etherscan source code, proveWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x445c62F4948f3B08a6bB1DbC51Ef985b3Eb199F1#code#F1#L190"
+            },
+            {
+              text: "OptimismPortal.sol#L270 - Etherscan source code, finalizeWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x445c62F4948f3B08a6bB1DbC51Ef985b3Eb199F1#code#F1#L270"
+            },
+            {
+              text: "L2OutputOracle.sol#L185 - Etherscan source code, PROPOSER check",
+              href: "https://etherscan.io/address/0x1E5e634981564fc645dcbC6546aE618d7870B30a#code#F1#L185"
+            }
+          ]
+        }
+      ],
+      smartContracts: {
+        name: "EVM compatible smart contracts are supported",
+        description: "OP stack chains are pursuing the EVM Equivalence model. No changes to smart contracts are required regardless of the language they are written in, i.e. anything deployed on L1 can be deployed on L2.",
+        risks: [],
+        references: [
+          {
+            text: "Introducing EVM Equivalence",
+            href: "https://medium.com/ethereum-optimism/introducing-evm-equivalence-5c2021deb306"
+          }
+        ]
+      }
+    },
+    permissions: [
+      {
+        name: "MantaOwner",
+        accounts: [
+          {
+            address: "0x4b1A788B20bb85eb19f8e9B69B8a584e7fA29fe5",
+            type: "EOA"
+          }
+        ],
+        description: "Owner of the SystemConfig and configured as the Challenger and Guardian of the system."
+      },
+      {
+        name: "AdminMultisig",
+        accounts: [
+          {
+            address: "0x3c46C05c2eba8eDd0B0f0C8B1D2fBf9fc53ea01E",
+            type: "MultiSig"
+          }
+        ],
+        description: "Owner of the ProxyAdmin contract."
+      }, {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0xa2DCa85BB892De55D8B262d1806114733106e8D1",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the OptimismPortal, L2OutputOracle, SystemConfig, L1StandardBridge, AddressManager proxies."
+      },
+      {
+        name: "Sequencer",
+        accounts: [
+          {
+            address: "0xA76E31D8471D569EfDd3D95d1b11Ce6710f4533F",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to commit L2 transactions to L1"
+      }, {
+        name: "Proposer",
+        accounts: [
+          {
+            address: "0x853bDfF715eFeDc280C16241dD30A6d651f90aCa",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to post new L2 state roots to L1"
+      }
+    ],
+    contracts: {
+      addresses: [
+        {
+          name: "L2OutputOracle",
+          address: "0x30c789674ad3B458886BBC9abf42EEe19EA05C1D",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x1E5e634981564fc645dcbC6546aE618d7870B30a",
+            admin: "0xa2DCa85BB892De55D8B262d1806114733106e8D1"
+          },
+          description: "The L2OutputOracle contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "OptimismPortal",
+          address: "0x9168765EE952de7C6f8fC6FaD5Ec209B960b7622",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x445c62F4948f3B08a6bB1DbC51Ef985b3Eb199F1",
+            admin: "0xa2DCa85BB892De55D8B262d1806114733106e8D1"
+          },
+          description: "The OptimismPortal contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "SystemConfig",
+          address: "0x895E00269A05848F3c9889EfA677D02fF7351a5D",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0xeF01a6aE995791FfFcA3d70bDA7B91E5Fa1aD0aE",
+            admin: "0xa2DCa85BB892De55D8B262d1806114733106e8D1"
+          },
+          description: "It contains configuration parameters such as the Sequencer address, the L2 gas limit and the unsafe block signer address.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "L1CrossDomainMessenger",
+          address: "0x635ba609680c55C3bDd0B3627b4c5dB21b13c310",
+          upgradeability: {
+            type: "resolved delegate proxy",
+            addressManager: "0x3Ad319BB4872F8cB75a26Ac30CC4bD2d56b67b05",
+            implementationName: "OVM_L1CrossDomainMessenger",
+            implementation: "0x9cDDc6F65eD67Ef19743fFDFD53501457ce8B51f"
+          },
+          description: "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }
+      ],
+      risks: [
+        {
+          category: "Funds can be stolen if",
+          text: "a contract receives a malicious code upgrade. There is no delay on code upgrades.",
+          isCritical: true
+        }
+      ]
+    },
+    milestones: [
+      {
+        name: "Manta Pacific Network Launch",
+        link: "https://mantanetwork.medium.com/manta-pacific-mainnet-alpha-launch-743c6bc2b95e",
+        date: "2023-09-12T00:00:00Z",
+        description: "Manta Pacific is live on mainnet."
+      }
+    ],
+    knowledgeNuggets: [
+      {
+        title: "How Optimism compresses data",
+        url: "https://twitter.com/bkiepuszewski/status/1508740414492323840?s=20&t=vMgR4jW1ssap-A-MBsO4Jw",
+        thumbnail: "l2beat-03.jpg"
+      }, {
+        title: "Bedrock Explainer",
+        url: "https://community.optimism.io/docs/developers/bedrock/explainer/",
+        thumbnail: "optimism-04.jpg"
+      }, {
+        title: "Modular Rollup Theory",
+        url: "https://www.youtube.com/watch?v=jnVjhp41pcc",
+        thumbnail: "modular-rollup.jpg"
+      }
+    ]
+  }, {
+    type: "layer2",
+    id: "optimism",
+    display: {
+      name: "OP Mainnet",
+      slug: "optimism",
+      warning: "Fraud proof system is currently under development. Users need to trust block Proposer to submit correct L1 state roots.",
+      description: "OP Mainnet is an EVM-equivalent Optimistic Rollup chain. It aims to be fast, simple, and secure.     With the Nov 2021 upgrade to OVM 2.0 old fraud proof system has been disabled while the     new fraud-proof system is being built (https://github.com/ethereum-optimism/cannon).",
+      purpose: "Universal",
+      provider: "OP Stack",
+      category: "Optimistic Rollup",
+      links: {
+        websites: [ "https://optimism.io/" ],
+        apps: [],
+        documentation: [ "https://community.optimism.io" ],
+        explorers: [ "https://optimistic.etherscan.io", "https://optimism.blockscout.com/"
+        ],
+        repositories: [ "https://github.com/ethereum-optimism/optimism" ],
+        socialMedia: [ "https://optimism.mirror.xyz/", "https://twitter.com/OptimismFND",
+          "https://twitter.com/OPLabsPBC", "https://youtube.com/playlist?list=PLX_rXoLYCf5HqTWygUfoMfzRirGz5lekH",
+          "https://twitch.tv/optimismpbc" ]
+      },
+      activityDataSource: "Blockchain RPC"
+    },
+    config: {
+      tokenList: [
+        {
+          id: "op-optimism",
+          name: "Optimism",
+          coingeckoId: "optimism",
+          address: "0x4200000000000000000000000000000000000042",
+          iconUrl: "https://assets.coingecko.com/coins/images/25244/large/Optimism.png?1660904599",
+          symbol: "OP",
+          decimals: 18,
+          sinceTimestamp: {
+            timestamp: 1654039974,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          category: "other",
+          type: "NMV",
+          formula: "circulatingSupply",
+          chainId: 10
+        }, {
+          id: "optimism:usdc-usd-coin",
+          name: "USD Coin",
+          coingeckoId: "usd-coin",
+          address: "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
+          iconUrl: "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
+          symbol: "USDC",
+          decimals: 6,
+          sinceTimestamp: {
+            timestamp: 1668453318,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          category: "stablecoin",
+          type: "NMV",
+          formula: "totalSupply",
+          chainId: 10
+        }, {
+          id: "optimism:kwenta-kwenta",
+          name: "Kwenta",
+          symbol: "KWENTA",
+          decimals: 18,
+          iconUrl: "https://assets.coingecko.com/coins/images/27409/large/kwenta.png?1668768595",
+          address: "0x920Cf626a271321C151D027030D5d08aF699456b",
+          coingeckoId: "kwenta",
+          sinceTimestamp: {
+            timestamp: 1668733200,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          category: "other",
+          type: "NMV",
+          formula: "circulatingSupply",
+          chainId: 10
+        }, {
+          id: "optimism:velo-velodrome-finance",
+          name: "Velodrome Finance",
+          symbol: "VELO",
+          decimals: 18,
+          iconUrl: "https://assets.coingecko.com/coins/images/25783/large/velo.png?1653817876",
+          address: "0x9560e827aF36c94D2Ac33a39bCE1Fe78631088Db",
+          coingeckoId: "velodrome-finance",
+          sinceTimestamp: {
+            timestamp: 1687392369,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          category: "other",
+          type: "NMV",
+          formula: "circulatingSupply",
+          chainId: 10
+        }
+      ],
+      associatedTokens: [ "OP" ],
+      nativeL2TokensIncludedInTVL: [ "OP" ],
+      tvlTooltip: "TVL includes canonically bridged assets and native OP",
+      escrows: [
+        {
+          address: "0xbEb5Fc579115071764c7423A4f12eDde41f106Ed",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1686068903,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: [ "ETH" ],
+          contract: {
+            name: "OptimismPortal",
+            description: "Main entry point for users depositing ETH.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0x28a55488fef40005309e2DA0040DbE9D300a64AB",
+              admin: "0x543bA4AADBAb8f9025686Bd03993043599c6fB04"
+            },
+            upgradableBy: [ "ProxyAdmin" ],
+            upgradeDelay: "No delay"
+          }
+        }, {
+          address: "0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1624401464,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: "*",
+          contract: {
+            name: "L1StandardBridge",
+            description: "Main entry point for users depositing ERC20 tokens that do not require custom gateway.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0xBFB731Cd36D26c2a7287716DE857E4380C73A64a",
+              admin: "0x543bA4AADBAb8f9025686Bd03993043599c6fB04"
+            },
+            upgradableBy: [ "ProxyAdmin" ],
+            upgradeDelay: "No delay"
+          }
+        }, {
+          address: "0x467194771dAe2967Aef3ECbEDD3Bf9a310C76C65",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1625675779,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: [ "DAI" ],
+          contract: {
+            name: "L1Escrow",
+            description: "DAI Vault for custom DAI Gateway managed by MakerDAO.",
+            upgradeability: {
+              type: "immutable"
+            },
+            upgradableBy: undefined,
+            upgradeDelay: undefined
+          }
+        }, {
+          address: "0x5Fd79D46EBA7F351fe49BFF9E87cdeA6c821eF9f",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1620680982,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: [ "SNX" ],
+          contract: {
+            name: "SynthetixBridgeEscrow",
+            description: "SNX Vault for custom SNX Gateway managed by Synthetix.",
+            upgradeability: {
+              type: "immutable"
+            },
+            upgradableBy: undefined,
+            upgradeDelay: undefined
+          }
+        }, {
+          address: "0x045e507925d2e05D114534D0810a1abD94aca8d6",
+          sinceTimestamp: {
+            timestamp: 1610668212,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: [ "SNX" ],
+          isHistorical: true
+        }, {
+          address: "0xCd9D4988C0AE61887B075bA77f08cbFAd2b65068",
+          sinceTimestamp: {
+            timestamp: 1620680934,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: [ "SNX" ],
+          isHistorical: true
+        }
+      ],
+      transactionApi: {
+        type: "rpc",
+        startBlock: 1,
+        assessCount: [Function]
+      }
+    },
+    riskView: {
+      stateValidation: {
+        value: "In development",
+        description: "Currently the system permits invalid state roots. More details in project overview.",
+        sentiment: "bad"
+      },
+      dataAvailability: {
+        value: "On chain",
+        description: "All of the data needed for proof construction is published on chain.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x28a55488fef40005309e2DA0040DbE9D300a64AB#code#F1#L434"
+            ]
+          }
+        ]
+      },
+      upgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0xbEb5Fc579115071764c7423A4f12eDde41f106Ed"
+            ]
+          }
+        ]
+      },
+      sequencerFailure: {
+        value: "Self sequence",
+        description: "In the event of a sequencer failure, users can force transactions to be included in the project's chain by sending them to L1. There is a 12h delay on this operation.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x28a55488fef40005309e2DA0040DbE9D300a64AB#code#F1#L434"
+            ]
+          }
+        ]
+      },
+      proposerFailure: {
+        value: "Cannot withdraw",
+        description: "Only the whitelisted proposers can publish state roots on L1, so in the event of failure the withdrawals are frozen.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "L2OutputOracle",
+            references: [ "https://etherscan.io/address/0xd2e67b6a032f0a9b1f569e63ad6c38f7342c2e00#code#F1#L186"
+            ]
+          }
+        ]
+      },
+      destinationToken: {
+        value: "Native & Canonical",
+        description: "ETH transferred via this bridge is used to pay for gas and other tokens transferred are considered canonical on the destination chain.",
+        sentiment: "good"
+      },
+      validatedBy: {
+        value: "Ethereum",
+        description: "Smart contracts on Ethereum validate all bridge transfers.",
+        sentiment: "good"
+      },
+      sourceUpgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0xbEb5Fc579115071764c7423A4f12eDde41f106Ed"
+            ]
+          }
+        ]
+      }
+    },
+    stage: {
+      stage: "Stage 0",
+      missing: {
+        nextStage: "Stage 1",
+        requirements: [ "The proof system is still under development.", "Users' withdrawals can be censored by the permissioned operators.",
+          "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+        ]
+      },
+      summary: [
+        {
+          stage: "Stage 0",
+          requirements: [
+            {
+              satisfied: true,
+              description: "The project calls itself a rollup."
+            }, {
+              satisfied: true,
+              description: "L2 state roots are posted to Ethereum L1."
+            }, {
+              satisfied: true,
+              description: "Inputs for the state transition function are posted to L1."
+            },
+            {
+              satisfied: true,
+              description: "A source-available node exists that can recreate the state from L1 data."
+            }
+          ]
+        }, {
+          stage: "Stage 1",
+          requirements: [
+            {
+              satisfied: false,
+              description: "The proof system is still under development."
+            }, {
+              satisfied: false,
+              description: "Users' withdrawals can be censored by the permissioned operators."
+            },
+            {
+              satisfied: false,
+              description: "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+            }
+          ]
+        }, {
+          stage: "Stage 2",
+          requirements: [
+            {
+              satisfied: false,
+              description: "Upgrades unrelated to on-chain provable bugs provide less than 30d to exit."
+            }
+          ]
+        }
+      ]
+    },
+    technology: {
+      stateCorrectness: {
+        name: "Fraud proofs are in development",
+        description: "Ultimately, OP stack chains will use interactive fraud proofs to enforce state correctness. This feature is currently in development and the system permits invalid state roots.",
+        risks: [
+          {
+            category: "Funds can be stolen if",
+            text: "an invalid state root is submitted to the system.",
+            isCritical: true
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L141 - Etherscan source code, deleteL2Outputs function",
+            href: "https://etherscan.io/address/0xd2E67B6a032F0A9B1f569E63ad6C38f7342c2e00#code#F1#L141"
+          }
+        ]
+      },
+      dataAvailability: {
+        name: "All transaction data is recorded on chain",
+        description: "All executed transactions are submitted to an on chain smart contract. The execution of the rollup is based entirely on the submitted transactions, so anyone monitoring the contract can know the correct state of the rollup chain.",
+        risks: [],
+        references: [
+          {
+            text: "Derivation: Batch submission - OP Mainnet specs",
+            href: "https://github.com/ethereum-optimism/optimism/blob/develop/specs/derivation.md#batch-submission"
+          },
+          {
+            text: "BatchInbox - Etherscan address",
+            href: "https://etherscan.io/address/0xff00000000000000000000000000000000000010"
+          },
+          {
+            text: "OptimismPortal.sol#L434 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x28a55488fef40005309e2DA0040DbE9D300a64AB#code#F1#L434"
+          }
+        ]
+      },
+      operator: {
+        name: "The system has a centralized operator",
+        description: "The operator is the only entity that can propose blocks. A live and trustworthy operator is vital to the health of the system.",
+        risks: [
+          {
+            category: "MEV can be extracted if",
+            text: "the operator exploits their centralized position and frontruns user transactions."
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L30 - Etherscan source code, CHALLENGER address",
+            href: "https://etherscan.io/address/0xd2E67B6a032F0A9B1f569E63ad6C38f7342c2e00#code#F1#L30"
+          },
+          {
+            text: "L2OutputOracle.sol#L35 - Etherscan source code, PROPOSER address",
+            href: "https://etherscan.io/address/0xd2E67B6a032F0A9B1f569E63ad6C38f7342c2e00#code#F1#L35"
+          },
+          {
+            text: "Decentralizing the sequencer - OP Mainnet docs",
+            href: "https://community.optimism.io/docs/protocol/#decentralizing-the-sequencer"
+          }
+        ]
+      },
+      forceTransactions: {
+        name: "Users can force any transaction",
+        description: "Because the state of the system is based on transactions submitted on-chain and anyone can submit their transactions there it allows the users to circumvent censorship by interacting with the smart contract directly.",
+        risks: [],
+        references: [
+          {
+            text: "Sequencing Window - OP Mainnet Specs",
+            href: "https://github.com/ethereum-optimism/optimism/blob/51eeb76efeb32b3df3e978f311188aa29f5e3e94/specs/glossary.md#sequencing-window"
+          },
+          {
+            text: "OptimismPortal.sol#L434 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x28a55488fef40005309e2DA0040DbE9D300a64AB#code#F1#L434"
+          }
+        ]
+      },
+      exitMechanisms: [
+        {
+          name: "Regular exit",
+          description: "The user initiates the withdrawal by submitting a regular transaction on this chain. When the block containing that transaction is finalized the funds become available for withdrawal on L1. The process of block finalization usually takes several days to complete. Finally the user submits an L1 transaction to claim the funds. This transaction requires a merkle proof.",
+          risks: [
+            {
+              category: "Funds can be frozen if",
+              text: "the centralized validator goes down. Users cannot produce blocks themselves and exiting the system requires new block production.",
+              isCritical: true
+            }
+          ],
+          references: [
+            {
+              text: "Withdrawing back to L1 - OP Mainnet Help Center",
+              href: "https://help.optimism.io/hc/en-us/articles/4411903283227-Withdrawals-from-Optimism"
+            },
+            {
+              text: "OptimismPortal.sol#L242 - Etherscan source code, proveWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x28a55488fef40005309e2DA0040DbE9D300a64AB#code#F1#L242"
+            },
+            {
+              text: "OptimismPortal.sol#325 - Etherscan source code, finalizeWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x28a55488fef40005309e2DA0040DbE9D300a64AB#code#F1#L325"
+            },
+            {
+              text: "L2OutputOracle.sol#L185 - Etherscan source code, PROPOSER check",
+              href: "https://etherscan.io/address/0xd2E67B6a032F0A9B1f569E63ad6C38f7342c2e00#code#F1#L185"
+            }
+          ]
+        }
+      ],
+      smartContracts: {
+        name: "EVM compatible smart contracts are supported",
+        description: "OP stack chains are pursuing the EVM Equivalence model. No changes to smart contracts are required regardless of the language they are written in, i.e. anything deployed on L1 can be deployed on L2.",
+        risks: [],
+        references: [
+          {
+            text: "Introducing EVM Equivalence",
+            href: "https://medium.com/ethereum-optimism/introducing-evm-equivalence-5c2021deb306"
+          }
+        ]
+      }
+    },
+    permissions: [
+      {
+        name: "OptimismMultisig",
+        description: "This address is the owner of the following contracts: ProxyAdmin, SystemConfig. It is also designated as a Guardian of the OptimismPortal, meaning it can halt withdrawals, and as a Challenger for state roots. It can upgrade the bridge implementation potentially gaining access to all funds, and change the sequencer, state root proposer or any other system component (unlimited upgrade power). This is a Gnosis Safe with 5 / 7 threshold.",
+        accounts: [
+          {
+            address: "0x9BA6e03D8B90dE867373Db8cF1A58d2F7F006b3A",
+            type: "MultiSig"
+          }
+        ]
+      }, {
+        name: "OptimismMultisig participants",
+        description: "Those are the participants of the OptimismMultisig.",
+        accounts: [
+          {
+            address: "0x42d27eEA1AD6e22Af6284F609847CB3Cd56B9c64",
+            type: "MultiSig"
+          }, {
+            address: "0x3041BA32f451F5850c147805F5521AC206421623",
+            type: "EOA"
+          }, {
+            address: "0xE7dEA1306D9F829bA469d1904c50903b46ebd02e",
+            type: "EOA"
+          }, {
+            address: "0xBF93D4d727F7Ba1F753E1124C3e532dCb04Ea2c8",
+            type: "EOA"
+          }, {
+            address: "0x4D014f3c5F33Aa9Cd1Dc29ce29618d07Ae666d15",
+            type: "EOA"
+          }, {
+            address: "0x7cB07FE039a92B3D784f284D919503A381BEC54f",
+            type: "EOA"
+          }, {
+            address: "0x9bbFB9919062C29a5eE15aCD93c9D7c3b14d31aa",
+            type: "EOA"
+          }
+        ],
+        references: undefined
+      }, {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0x543bA4AADBAb8f9025686Bd03993043599c6fB04",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the OptimismPortal, L2OutputOracle, SystemConfig contract, L1StandardBridge, AddressManager proxies. It’s controlled by the OptimismMultisig."
+      },
+      {
+        name: "Sequencer",
+        accounts: [
+          {
+            address: "0x6887246668a3b87F54DeB3b94Ba47a6f63F32985",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to commit L2 transactions to L1."
+      }, {
+        name: "Proposer",
+        accounts: [
+          {
+            address: "0x473300df21D047806A082244b417f96b32f13A33",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to post new L2 state roots to L1."
+      }, {
+        name: "Challenger",
+        accounts: [
+          {
+            address: "0x9BA6e03D8B90dE867373Db8cF1A58d2F7F006b3A",
+            type: "MultiSig"
+          }
+        ],
+        description: "Central actor allowed to challenge L2 state roots."
+      }
+    ],
+    contracts: {
+      addresses: [
+        {
+          name: "L2OutputOracle",
+          address: "0xdfe97868233d1aa22e815a266982f2cf17685a27",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0xd2E67B6a032F0A9B1f569E63ad6C38f7342c2e00",
+            admin: "0x543bA4AADBAb8f9025686Bd03993043599c6fB04"
+          },
+          description: "The L2OutputOracle contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "OptimismPortal",
+          address: "0xbEb5Fc579115071764c7423A4f12eDde41f106Ed",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x28a55488fef40005309e2DA0040DbE9D300a64AB",
+            admin: "0x543bA4AADBAb8f9025686Bd03993043599c6fB04"
+          },
+          description: "The OptimismPortal contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "SystemConfig",
+          address: "0x229047fed2591dbec1eF1118d64F7aF3dB9EB290",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x5efa852e92800D1C982711761e45c3FE39a2b6D8",
+            admin: "0x543bA4AADBAb8f9025686Bd03993043599c6fB04"
+          },
+          description: "It contains configuration parameters such as the Sequencer address, the L2 gas limit and the unsafe block signer address.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "L1CrossDomainMessengerProxy",
+          address: "0x25ace71c97B33Cc4729CF772ae268934F7ab5fA1",
+          upgradeability: {
+            type: "resolved delegate proxy",
+            addressManager: "0xdE1FCfB0851916CA5101820A69b13a4E276bd81F",
+            implementationName: "OVM_L1CrossDomainMessenger",
+            implementation: "0x2150Bc3c64cbfDDbaC9815EF615D6AB8671bfe43"
+          },
+          description: "The L1 Cross Domain Messenger (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }
+      ],
+      risks: [
+        {
+          category: "Funds can be stolen if",
+          text: "a contract receives a malicious code upgrade. There is no delay on code upgrades.",
+          isCritical: true
+        }
+      ]
+    },
+    milestones: [
+      {
+        name: "Mainnet migration to Bedrock",
+        link: "https://oplabs.notion.site/Bedrock-Mission-Control-EXTERNAL-fca344b1f799447cb1bcf3aae62157c5",
+        date: "2023-06-06T00:00:00Z",
+        description: "OP Mainnet, since Jun 2023 is running Bedrock."
+      }, {
+        name: "Goerli testnet migration to Bedrock",
+        link: "https://twitter.com/OPLabsPBC/status/1613684377124327424",
+        date: "2023-01-13T00:00:00Z",
+        description: "OP Mainnet on Goerli, since Jan 2023 is running Bedrock."
+      }, {
+        name: "OP Stack Introduced",
+        link: "https://optimism.mirror.xyz/fLk5UGjZDiXFuvQh6R_HscMQuuY9ABYNF7PI76-qJYs",
+        date: "2022-10-17T00:00:00Z",
+        description: "OP Stack, modular, open-sourced blueprint on how to build scalable blockchains."
+      },
+      {
+        name: "Mainnet for everyone",
+        description: "Whitelist got removed, there are no restrictions on who can transact with the network.",
+        link: "https://medium.com/ethereum-optimism/all-gas-no-brakes-8b0f32afd466",
+        date: "2021-12-16T00:00:00Z"
+      }, {
+        name: "OP token airdrop",
+        link: "https://optimism.mirror.xyz/qvd0WfuLKnePm1Gxb9dpGchPf5uDz5NSMEFdgirDS4c",
+        date: "2022-05-31T00:00:00Z",
+        description: "The first round of OP token airdrop."
+      }, {
+        name: "OVM 2.0 is live",
+        link: "https://twitter.com/optimismfnd/status/1458953238867165192?s=21&t=cQ0NPREYt-u1rP7OiPFKUg",
+        date: "2021-11-12T00:00:00Z",
+        description: "Network upgrade to OVM 2.0 and removal of fraud-proof system."
+      },
+      {
+        name: "Mainnet Soft Launch",
+        link: "https://medium.com/ethereum-optimism/mainnet-soft-launch-7cacc0143cd5",
+        date: "2021-01-16T00:00:00Z",
+        description: "Only selected contracts like Synthetix and Uniswap are available."
+      },
+      {
+        name: "Community Launch",
+        link: "https://medium.com/ethereum-optimism/community-launch-7c9a2a9d3e84",
+        date: "2021-08-19T00:00:00Z",
+        description: "All smart contracts allowed after prior approval."
+      }
+    ],
+    knowledgeNuggets: [
+      {
+        title: "How OP Mainnet compresses data",
+        url: "https://twitter.com/bkiepuszewski/status/1508740414492323840?s=20&t=vMgR4jW1ssap-A-MBsO4Jw",
+        thumbnail: "l2beat-03.jpg"
+      }, {
+        title: "Bedrock Explainer",
+        url: "https://community.optimism.io/docs/developers/bedrock/explainer/",
+        thumbnail: "optimism-04.jpg"
+      }, {
+        title: "Modular Rollup Theory",
+        url: "https://www.youtube.com/watch?v=jnVjhp41pcc",
+        thumbnail: "modular-rollup.jpg"
+      }
+    ]
+  }, {
+    type: "layer2",
+    id: "publicgoodsnetwork",
+    display: {
+      name: "Public Goods Network",
+      slug: "publicgoodsnetwork",
+      warning: "Fraud proof system is currently under development. Users need to trust the block proposer to submit correct L1 state roots.",
+      description: "Public Goods Network is an OP stack chain focused on funding public goods.",
+      purpose: "Universal",
+      category: "Optimistic Rollup",
+      provider: "OP Stack",
+      links: {
+        websites: [ "https://publicgoods.network/" ],
+        apps: [ "https://bridge.publicgoods.network/" ],
+        documentation: [ "https://docs.publicgoods.network/" ],
+        explorers: [ "https://explorer.publicgoods.network" ],
+        repositories: [ "https://github.com/supermodularxyz/pgn-monorepo", "https://github.com/supermodularxyz/pgn-docs"
+        ],
+        socialMedia: [ "https://twitter.com/pgn_eth" ]
+      },
+      activityDataSource: "Blockchain RPC"
+    },
+    config: {
+      escrows: [
+        {
+          address: "0xb26Fd985c5959bBB382BAFdD0b879E149e48116c",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1686068903,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: [ "ETH" ],
+          contract: {
+            name: "OptimismPortal",
+            description: "Main entry point for users depositing ETH.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0x436e9FC7894e26718637f086d42B4a06439C8ae0",
+              admin: "0xc6A8d2c5d0F068BE745f6A770378F01ca1714cc4"
+            },
+            upgradableBy: [ "ProxyAdmin" ],
+            upgradeDelay: "No delay"
+          }
+        }, {
+          address: "0xD0204B9527C1bA7bD765Fa5CCD9355d38338272b",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1624401464,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: "*",
+          contract: {
+            name: "L1StandardBridge",
+            description: "Main entry point for users depositing ERC20 tokens that do not require custom gateway.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0x459bA3BD8fb18CCBf557Ae9Fab13ceD2542B0d8E",
+              admin: "0xc6A8d2c5d0F068BE745f6A770378F01ca1714cc4"
+            },
+            upgradableBy: [ "ProxyAdmin" ],
+            upgradeDelay: "No delay"
+          }
+        }
+      ],
+      transactionApi: {
+        type: "rpc",
+        startBlock: 1,
+        url: "https://rpc.publicgoods.network",
+        callsPerMinute: 1500,
+        assessCount: [Function]
+      }
+    },
+    riskView: {
+      stateValidation: {
+        value: "In development",
+        description: "Currently the system permits invalid state roots. More details in project overview.",
+        sentiment: "bad"
+      },
+      dataAvailability: {
+        value: "On chain",
+        description: "All of the data needed for proof construction is published on chain.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x436e9FC7894e26718637f086d42B4a06439C8ae0#code#F1#L434"
+            ]
+          }
+        ]
+      },
+      upgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0xb26Fd985c5959bBB382BAFdD0b879E149e48116c"
+            ]
+          }
+        ]
+      },
+      sequencerFailure: {
+        value: "Self sequence",
+        description: "In the event of a sequencer failure, users can force transactions to be included in the project's chain by sending them to L1. There is a 12h delay on this operation.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x436e9FC7894e26718637f086d42B4a06439C8ae0#code#F1#L434"
+            ]
+          }
+        ]
+      },
+      proposerFailure: {
+        value: "Cannot withdraw",
+        description: "Only the whitelisted proposers can publish state roots on L1, so in the event of failure the withdrawals are frozen.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "L2OutputOracle",
+            references: [ "https://etherscan.io/address/0x76983dfED43C7ae7ebB592A92Be2BE972cAE4348#code#F1#L186"
+            ]
+          }
+        ]
+      },
+      destinationToken: {
+        value: "Native & Canonical",
+        description: "ETH transferred via this bridge is used to pay for gas and other tokens transferred are considered canonical on the destination chain.",
+        sentiment: "good"
+      },
+      validatedBy: {
+        value: "Ethereum",
+        description: "Smart contracts on Ethereum validate all bridge transfers.",
+        sentiment: "good"
+      },
+      sourceUpgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0xb26Fd985c5959bBB382BAFdD0b879E149e48116c"
+            ]
+          }
+        ]
+      }
+    },
+    stage: {
+      stage: "Stage 0",
+      missing: {
+        nextStage: "Stage 1",
+        requirements: [ "The proof system is still under development.", "Users' withdrawals can be censored by the permissioned operators.",
+          "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+        ]
+      },
+      summary: [
+        {
+          stage: "Stage 0",
+          requirements: [
+            {
+              satisfied: true,
+              description: "The project calls itself a rollup."
+            }, {
+              satisfied: true,
+              description: "L2 state roots are posted to Ethereum L1."
+            }, {
+              satisfied: true,
+              description: "Inputs for the state transition function are posted to L1."
+            },
+            {
+              satisfied: true,
+              description: "A source-available node exists that can recreate the state from L1 data."
+            }
+          ]
+        }, {
+          stage: "Stage 1",
+          requirements: [
+            {
+              satisfied: false,
+              description: "The proof system is still under development."
+            }, {
+              satisfied: false,
+              description: "Users' withdrawals can be censored by the permissioned operators."
+            },
+            {
+              satisfied: false,
+              description: "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+            }
+          ]
+        }, {
+          stage: "Stage 2",
+          requirements: [
+            {
+              satisfied: false,
+              description: "Upgrades unrelated to on-chain provable bugs provide less than 30d to exit."
+            }
+          ]
+        }
+      ]
+    },
+    technology: {
+      stateCorrectness: {
+        name: "Fraud proofs are in development",
+        description: "Ultimately, OP stack chains will use interactive fraud proofs to enforce state correctness. This feature is currently in development and the system permits invalid state roots.",
+        risks: [
+          {
+            category: "Funds can be stolen if",
+            text: "an invalid state root is submitted to the system.",
+            isCritical: true
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L141 - Etherscan source code, deleteL2Outputs function",
+            href: "https://etherscan.io/address/0x76983dfED43C7ae7ebB592A92Be2BE972cAE4348#code#F1#L141"
+          }
+        ]
+      },
+      dataAvailability: {
+        name: "All transaction data is recorded on chain",
+        description: "All executed transactions are submitted to an on chain smart contract. The execution of the rollup is based entirely on the submitted transactions, so anyone monitoring the contract can know the correct state of the rollup chain.",
+        risks: [],
+        references: [
+          {
+            text: "Derivation: Batch submission - OP Stack specs",
+            href: "https://github.com/ethereum-optimism/optimism/blob/develop/specs/derivation.md#batch-submission"
+          },
+          {
+            text: "BatchInbox - Etherscan address",
+            href: "https://etherscan.io/address/0x6F54Ca6F6EdE96662024Ffd61BFd18f3f4e34DFf"
+          },
+          {
+            text: "OptimismPortal.sol#L434 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x436e9FC7894e26718637f086d42B4a06439C8ae0#code#F1#L434"
+          }
+        ]
+      },
+      operator: {
+        name: "The system has a centralized operator",
+        description: "The operator is the only entity that can propose blocks. A live and trustworthy operator is vital to the health of the system.",
+        risks: [
+          {
+            category: "MEV can be extracted if",
+            text: "the operator exploits their centralized position and frontruns user transactions."
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#30 - Etherscan source code, CHALLENGER address",
+            href: "https://etherscan.io/address/0x76983dfED43C7ae7ebB592A92Be2BE972cAE4348#code#F1#L30"
+          },
+          {
+            text: "L2OutputOracle.sol#L35 - Etherscan source code, PROPOSER address",
+            href: "https://etherscan.io/address/0x76983dfED43C7ae7ebB592A92Be2BE972cAE4348#code#F1#L35"
+          },
+          {
+            text: "Decentralizing the sequencer - OP Stack docs",
+            href: "https://community.optimism.io/docs/protocol/#decentralizing-the-sequencer"
+          }
+        ]
+      },
+      forceTransactions: {
+        name: "Users can force any transaction",
+        description: "Because the state of the system is based on transactions submitted on-chain and anyone can submit their transactions there it allows the users to circumvent censorship by interacting with the smart contract directly.",
+        risks: [],
+        references: [
+          {
+            text: "Sequencing Window - OP Stack specs",
+            href: "https://github.com/ethereum-optimism/optimism/blob/develop/specs/glossary.md#sequencing-window"
+          },
+          {
+            text: "OptimismPortal.sol#L434 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x436e9FC7894e26718637f086d42B4a06439C8ae0#code#F1#L434"
+          }
+        ]
+      },
+      exitMechanisms: [
+        {
+          name: "Regular exit",
+          description: "The user initiates the withdrawal by submitting a regular transaction on this chain. When the block containing that transaction is finalized the funds become available for withdrawal on L1. The process of block finalization usually takes several days to complete. Finally the user submits an L1 transaction to claim the funds. This transaction requires a merkle proof.",
+          risks: [
+            {
+              category: "Funds can be frozen if",
+              text: "the centralized validator goes down. Users cannot produce blocks themselves and exiting the system requires new block production.",
+              isCritical: true
+            }
+          ],
+          references: [
+            {
+              text: "OptimismPortal.sol#L242 - Etherscan source code, proveWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x436e9FC7894e26718637f086d42B4a06439C8ae0#code#F1#L242"
+            },
+            {
+              text: "OptimismPortal.sol#L325 - Etherscan source code, finalizeWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x436e9FC7894e26718637f086d42B4a06439C8ae0#code#F1#L325"
+            },
+            {
+              text: "L2OutputOracle.sol#L185 - Etherscan source code, PROPOSER check",
+              href: "https://etherscan.io/address/0x76983dfED43C7ae7ebB592A92Be2BE972cAE4348#code#F1#L185"
+            }
+          ]
+        }
+      ],
+      smartContracts: {
+        name: "EVM compatible smart contracts are supported",
+        description: "OP stack chains are pursuing the EVM Equivalence model. No changes to smart contracts are required regardless of the language they are written in, i.e. anything deployed on L1 can be deployed on L2.",
+        risks: [],
+        references: [
+          {
+            text: "Introducing EVM Equivalence",
+            href: "https://medium.com/ethereum-optimism/introducing-evm-equivalence-5c2021deb306"
+          }
+        ]
+      }
+    },
+    permissions: [
+      {
+        name: "PGNMultisig",
+        description: "This address is the owner of the following contracts: SystemConfig, ProxyAdmin. It can upgrade the bridge implementation potentially gaining access to all funds, and change the sequencer, state root proposer or any other system component (unlimited upgrade power). This is a Gnosis Safe with 3 / 5 threshold.",
+        accounts: [
+          {
+            address: "0x4a4962275DF8C60a80d3a25faEc5AA7De116A746",
+            type: "MultiSig"
+          }
+        ]
+      }, {
+        name: "PGNMultisig participants",
+        description: "Those are the participants of the PGNMultisig.",
+        accounts: [
+          {
+            address: "0x3840f487A17A41100DD1Bf0946c34f132a57Fd5f",
+            type: "EOA"
+          }, {
+            address: "0xa0C600a6e85bf225958FFAcC70B5FDDF9A059038",
+            type: "EOA"
+          }, {
+            address: "0xefCf0c8faFB425997870f845e26fC6cA6EE6dD5C",
+            type: "EOA"
+          }, {
+            address: "0x4D8007a0E9f293e62E2b0F43C6Cf4C4B9e135BAe",
+            type: "EOA"
+          }, {
+            address: "0x5553a23a71Bc7985c8E58Ca08072D2Fa9D1D1F4c",
+            type: "EOA"
+          }
+        ],
+        references: undefined
+      }, {
+        name: "GuardianMultisig",
+        description: "This address is the permissioned challenger of the system. It can delete non finalized roots without going through the fault proof process. It is also designated as a Guardian of the OptimismPortal, meaning it can halt withdrawals. This is a Gnosis Safe with 3 / 6 threshold.",
+        accounts: [
+          {
+            address: "0x39E13D1AB040F6EA58CE19998edCe01B3C365f84",
+            type: "MultiSig"
+          }
+        ]
+      }, {
+        name: "GuardianMultisig participants",
+        description: "Those are the participants of the GuardianMultisig.",
+        accounts: [
+          {
+            address: "0xa0C600a6e85bf225958FFAcC70B5FDDF9A059038",
+            type: "EOA"
+          }, {
+            address: "0x3840f487A17A41100DD1Bf0946c34f132a57Fd5f",
+            type: "EOA"
+          }, {
+            address: "0x5553a23a71Bc7985c8E58Ca08072D2Fa9D1D1F4c",
+            type: "EOA"
+          }, {
+            address: "0xefCf0c8faFB425997870f845e26fC6cA6EE6dD5C",
+            type: "EOA"
+          }, {
+            address: "0x4D8007a0E9f293e62E2b0F43C6Cf4C4B9e135BAe",
+            type: "EOA"
+          }, {
+            address: "0xc2E2B715d9e302947Ec7e312fd2384b5a1296099",
+            type: "EOA"
+          }
+        ],
+        references: undefined
+      }, {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0xc6A8d2c5d0F068BE745f6A770378F01ca1714cc4",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the AddressManager, SystemConfig, L2OutputOracle, OptimismPortal, L1StandardBridge proxies. It's controlled by the PGNMultisig."
+      },
+      {
+        name: "Sequencer",
+        accounts: [
+          {
+            address: "0x99526b0e49A95833E734EB556A6aBaFFAb0Ee167",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to commit L2 transactions to L1"
+      }, {
+        name: "Proposer",
+        accounts: [
+          {
+            address: "0x69968Ce0E92d9c101BAd81de55EFbcb69603cFe3",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to post new L2 state roots to L1"
+      }
+    ],
+    contracts: {
+      addresses: [
+        {
+          name: "L2OutputOracle",
+          address: "0xA38d0c4E6319F9045F20318BA5f04CDe94208608",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x76983dfED43C7ae7ebB592A92Be2BE972cAE4348",
+            admin: "0xc6A8d2c5d0F068BE745f6A770378F01ca1714cc4"
+          },
+          description: "The L2OutputOracle contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "OptimismPortal",
+          address: "0xb26Fd985c5959bBB382BAFdD0b879E149e48116c",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x436e9FC7894e26718637f086d42B4a06439C8ae0",
+            admin: "0xc6A8d2c5d0F068BE745f6A770378F01ca1714cc4"
+          },
+          description: "The OptimismPortal contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "SystemConfig",
+          address: "0x7Df716EAD1d83a2BF35B416B7BC84bd0700357C9",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x463B3777d3DD6a90234b594D1f94002267CE7948",
+            admin: "0xc6A8d2c5d0F068BE745f6A770378F01ca1714cc4"
+          },
+          description: "It contains configuration parameters such as the Sequencer address, the L2 gas limit and the unsafe block signer address.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "L1CrossDomainMessenger",
+          address: "0x97BAf688E5d0465E149d1d5B497Ca99392a6760e",
+          upgradeability: {
+            type: "resolved delegate proxy",
+            addressManager: "0x09d5DbA52F0ee2C4A5E94FD5C802bD74Ca9cAD3e",
+            implementationName: "OVM_L1CrossDomainMessenger",
+            implementation: "0x1d8180D739D01dC97e837478af8d494215C5EF5e"
+          },
+          description: "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }
+      ],
+      risks: [
+        {
+          category: "Funds can be stolen if",
+          text: "a contract receives a malicious code upgrade. There is no delay on code upgrades.",
+          isCritical: true
+        }
+      ]
+    },
+    milestones: [
+      {
+        name: "Public Goods Network Launch",
+        link: "https://twitter.com/pgn_eth/status/1676972199423668228",
+        date: "2023-07-06T00:00:00.00Z",
+        description: "The Public Goods Network is live on mainnet."
+      }
+    ],
+    knowledgeNuggets: [
+      {
+        title: "How Optimism compresses data",
+        url: "https://twitter.com/bkiepuszewski/status/1508740414492323840?s=20&t=vMgR4jW1ssap-A-MBsO4Jw",
+        thumbnail: "l2beat-03.jpg"
+      }, {
+        title: "Bedrock Explainer",
+        url: "https://community.optimism.io/docs/developers/bedrock/explainer/",
+        thumbnail: "optimism-04.jpg"
+      }, {
+        title: "Modular Rollup Theory",
+        url: "https://www.youtube.com/watch?v=jnVjhp41pcc",
+        thumbnail: "modular-rollup.jpg"
+      }
+    ]
+  }, {
+    type: "layer2",
+    id: "zora",
+    display: {
+      name: "Zora",
+      slug: "zora",
+      warning: "Fraud proof system is currently under development. Users need to trust the block proposer to submit correct L1 state roots.",
+      description: "Zora is a fast, cost-efficient, and scalable Layer 2 built to help bring media onchain, powered by the OP Stack.",
+      purpose: "Universal, NFTs",
+      provider: "OP Stack",
+      category: "Optimistic Rollup",
+      links: {
+        websites: [ "https://zora.energy/", "https://zora.co/" ],
+        apps: [],
+        documentation: [ "https://docs.zora.co/docs/zora-network/intro" ],
+        explorers: [ "https://explorer.zora.energy/" ],
+        repositories: [ "https://github.com/ourzora/optimism" ],
+        socialMedia: [ "https://twitter.com/ourZORA" ]
+      },
+      activityDataSource: "Blockchain RPC"
+    },
+    config: {
+      escrows: [
+        {
+          address: "0x1a0ad011913A150f69f6A19DF447A0CfD9551054",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1686607200,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: [ "ETH" ],
+          contract: {
+            name: "OptimismPortal",
+            description: "Main entry point for users depositing ETH.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0x43260ee547c3965bb2a0174763bb8FEcC650BA4A",
+              admin: "0xD4ef175B9e72cAEe9f1fe7660a6Ec19009903b49"
+            },
+            upgradableBy: [ "ProxyAdmin" ],
+            upgradeDelay: "No delay"
+          }
+        }, {
+          address: "0x3e2Ea9B92B7E48A52296fD261dc26fd995284631",
+          newVersion: true,
+          sinceTimestamp: {
+            timestamp: 1686607200,
+            toStartOf: [Function: toStartOf],
+            toNext: [Function: toNext],
+            isFull: [Function: isFull],
+            add: [Function: add],
+            equals: [Function: equals],
+            lt: [Function: lt],
+            lte: [Function: lte],
+            gt: [Function: gt],
+            gte: [Function: gte],
+            toNumber: [Function: toNumber],
+            toDate: [Function: toDate],
+            toString: [Function: toString],
+            toJSON: [Function: toJSON],
+            toYYYYMMDD: [Function: toYYYYMMDD],
+            toDays: [Function: toDays]
+          },
+          tokens: "*",
+          contract: {
+            name: "L1StandardBridge",
+            description: "Main entry point for users depositing ERC20 token that do not require custom gateway.",
+            upgradeability: {
+              type: "EIP1967 proxy",
+              implementation: "0xbF6acaF315477b15D638bf4d91eA48FA79b58335",
+              admin: "0xD4ef175B9e72cAEe9f1fe7660a6Ec19009903b49"
+            },
+            upgradableBy: [ "ProxyAdmin" ],
+            upgradeDelay: "No delay"
+          }
+        }
+      ],
+      transactionApi: {
+        type: "rpc",
+        startBlock: 1,
+        url: "https://rpc.zora.co",
+        callsPerMinute: 1500,
+        assessCount: [Function]
+      }
+    },
+    riskView: {
+      stateValidation: {
+        value: "In development",
+        description: "Currently the system permits invalid state roots. More details in project overview.",
+        sentiment: "bad"
+      },
+      dataAvailability: {
+        value: "On chain",
+        description: "All of the data needed for proof construction is published on chain.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x43260ee547c3965bb2a0174763bb8FEcC650BA4A#code#F1#L434"
+            ]
+          }
+        ]
+      },
+      upgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x1a0ad011913A150f69f6A19DF447A0CfD9551054"
+            ]
+          }
+        ]
+      },
+      sequencerFailure: {
+        value: "Self sequence",
+        description: "In the event of a sequencer failure, users can force transactions to be included in the project's chain by sending them to L1. There is a 12h delay on this operation.",
+        sentiment: "good",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x43260ee547c3965bb2a0174763bb8FEcC650BA4A#code#F1#L434"
+            ]
+          }
+        ]
+      },
+      proposerFailure: {
+        value: "Cannot withdraw",
+        description: "Only the whitelisted proposers can publish state roots on L1, so in the event of failure the withdrawals are frozen.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "L2OutputOracle",
+            references: [ "https://etherscan.io/address/0x9eedde6b4D3263b97209Ba860eDF3Fc6a8fB6a44#code#F1#L186"
+            ]
+          }
+        ]
+      },
+      destinationToken: {
+        value: "Native & Canonical",
+        description: "ETH transferred via this bridge is used to pay for gas and other tokens transferred are considered canonical on the destination chain.",
+        sentiment: "good"
+      },
+      validatedBy: {
+        value: "Ethereum",
+        description: "Smart contracts on Ethereum validate all bridge transfers.",
+        sentiment: "good"
+      },
+      sourceUpgradeability: {
+        value: "Yes",
+        description: "The code that secures the system can be changed arbitrarily and without notice.",
+        sentiment: "bad",
+        sources: [
+          {
+            contract: "OptimismPortal",
+            references: [ "https://etherscan.io/address/0x1a0ad011913A150f69f6A19DF447A0CfD9551054"
+            ]
+          }
+        ]
+      }
+    },
+    stage: {
+      stage: "Stage 0",
+      missing: {
+        nextStage: "Stage 1",
+        requirements: [ "The proof system is still under development.", "Users' withdrawals can be censored by the permissioned operators.",
+          "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+        ]
+      },
+      summary: [
+        {
+          stage: "Stage 0",
+          requirements: [
+            {
+              satisfied: true,
+              description: "The project calls itself a rollup."
+            }, {
+              satisfied: true,
+              description: "L2 state roots are posted to Ethereum L1."
+            }, {
+              satisfied: true,
+              description: "Inputs for the state transition function are posted to L1."
+            },
+            {
+              satisfied: true,
+              description: "A source-available node exists that can recreate the state from L1 data."
+            }
+          ]
+        }, {
+          stage: "Stage 1",
+          requirements: [
+            {
+              satisfied: false,
+              description: "The proof system is still under development."
+            }, {
+              satisfied: false,
+              description: "Users' withdrawals can be censored by the permissioned operators."
+            },
+            {
+              satisfied: false,
+              description: "Upgrades executed by actors with more centralized control than a Security Council provide less than 7d for users to exit if the permissioned operator is down or censoring."
+            }
+          ]
+        }, {
+          stage: "Stage 2",
+          requirements: [
+            {
+              satisfied: false,
+              description: "Upgrades unrelated to on-chain provable bugs provide less than 30d to exit."
+            }
+          ]
+        }
+      ]
+    },
+    technology: {
+      stateCorrectness: {
+        name: "Fraud proofs are in development",
+        description: "Ultimately, OP stack chains will use interactive fraud proofs to enforce state correctness. This feature is currently in development and the system permits invalid state roots.",
+        risks: [
+          {
+            category: "Funds can be stolen if",
+            text: "an invalid state root is submitted to the system.",
+            isCritical: true
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L141 - Etherscan source code, deleteL2Outputs function",
+            href: "https://etherscan.io/address/0x9eedde6b4D3263b97209Ba860eDF3Fc6a8fB6a44#code#F1#L141"
+          }
+        ]
+      },
+      dataAvailability: {
+        name: "All transaction data is recorded on chain",
+        description: "All executed transactions are submitted to an on chain smart contract. The execution of the rollup is based entirely on the submitted transactions, so anyone monitoring the contract can know the correct state of the rollup chain.",
+        risks: [],
+        references: [
+          {
+            text: "Derivation: Batch submission - OP Stack specs",
+            href: "https://github.com/ourzora/optimism/blob/develop/specs/derivation.md#batch-submission"
+          },
+          {
+            text: "BatchInbox - Etherscan address",
+            href: "https://etherscan.io/address/0x6f54ca6f6ede96662024ffd61bfd18f3f4e34dff"
+          },
+          {
+            text: "OptimismPortal.sol#L434 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x43260ee547c3965bb2a0174763bb8fecc650ba4a#code#F1#L434"
+          }
+        ]
+      },
+      operator: {
+        name: "The system has a centralized operator",
+        description: "The operator is the only entity that can propose blocks. A live and trustworthy operator is vital to the health of the system.",
+        risks: [
+          {
+            category: "MEV can be extracted if",
+            text: "the operator exploits their centralized position and frontruns user transactions."
+          }
+        ],
+        references: [
+          {
+            text: "L2OutputOracle.sol#L30 - Etherscan source code, CHALLENGER address",
+            href: "https://etherscan.io/address/0x9eedde6b4D3263b97209Ba860eDF3Fc6a8fB6a44#code#F1#L30"
+          },
+          {
+            text: "L2OutputOracle.sol#L35 - Etherscan source code, PROPOSER address",
+            href: "https://etherscan.io/address/0x9eedde6b4D3263b97209Ba860eDF3Fc6a8fB6a44#code#F1#L35"
+          },
+          {
+            text: "Decentralizing the sequencer - OP Stack docs",
+            href: "https://community.optimism.io/docs/protocol/#decentralizing-the-sequencer"
+          }
+        ]
+      },
+      forceTransactions: {
+        name: "Users can force any transaction",
+        description: "Because the state of the system is based on transactions submitted on-chain and anyone can submit their transactions there it allows the users to circumvent censorship by interacting with the smart contract directly.",
+        risks: [],
+        references: [
+          {
+            text: "Sequencing Window - OP Stack specs",
+            href: "https://github.com/ourzora/optimism/blob/51eeb76efeb32b3df3e978f311188aa29f5e3e94/specs/glossary.md#sequencing-window"
+          },
+          {
+            text: "OptimismPortal.sol#L434 - Etherscan source code, depositTransaction function",
+            href: "https://etherscan.io/address/0x43260ee547c3965bb2a0174763bb8fecc650ba4a#code#F1#L434"
+          }
+        ]
+      },
+      exitMechanisms: [
+        {
+          name: "Regular exit",
+          description: "The user initiates the withdrawal by submitting a regular transaction on this chain. When the block containing that transaction is finalized the funds become available for withdrawal on L1. The process of block finalization usually takes several days to complete. Finally the user submits an L1 transaction to claim the funds. This transaction requires a merkle proof.",
+          risks: [
+            {
+              category: "Funds can be frozen if",
+              text: "the centralized validator goes down. Users cannot produce blocks themselves and exiting the system requires new block production.",
+              isCritical: true
+            }
+          ],
+          references: [
+            {
+              text: "OptimismPortal.sol#L242 - Etherscan source code, proveWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x43260ee547c3965bb2a0174763bb8fecc650ba4a#code#F1#L242"
+            },
+            {
+              text: "OptimismPortal.sol#L325 - Etherscan source code, finalizeWithdrawalTransaction function",
+              href: "https://etherscan.io/address/0x43260ee547c3965bb2a0174763bb8fecc650ba4a#code#F1#L325"
+            },
+            {
+              text: "L2OutputOracle.sol#L185 - Etherscan source code, PROPOSER check",
+              href: "https://etherscan.io/address/0x9eedde6b4D3263b97209Ba860eDF3Fc6a8fB6a44#code#F1#L185"
+            }
+          ]
+        }
+      ],
+      smartContracts: {
+        name: "EVM compatible smart contracts are supported",
+        description: "OP stack chains are pursuing the EVM Equivalence model. No changes to smart contracts are required regardless of the language they are written in, i.e. anything deployed on L1 can be deployed on L2.",
+        risks: [],
+        references: [
+          {
+            text: "Introducing EVM Equivalence",
+            href: "https://medium.com/ethereum-optimism/introducing-evm-equivalence-5c2021deb306"
+          }
+        ]
+      }
+    },
+    permissions: [
+      {
+        name: "ZoraMultisig",
+        description: "This address is the owner of the following contracts: ProxyAdmin, SystemConfig. It is also designated as a Guardian of the OptimismPortal, meaning it can halt withdrawals. It can upgrade the bridge implementation potentially gaining access to all funds, and change the sequencer, state root proposer or any other system component (unlimited upgrade power). This is a Gnosis Safe with 4 / 6 threshold.",
+        accounts: [
+          {
+            address: "0xC72aE5c7cc9a332699305E29F68Be66c73b60542",
+            type: "MultiSig"
+          }
+        ]
+      }, {
+        name: "ZoraMultisig participants",
+        description: "Those are the participants of the ZoraMultisig.",
+        accounts: [
+          {
+            address: "0xf2989961Bf987bdD6c86CD6B845B6fACa194a8e4",
+            type: "EOA"
+          }, {
+            address: "0xe7d71aea6FB8248d4fD4D5d5098D201674B531dB",
+            type: "EOA"
+          }, {
+            address: "0xc08C1b8fD69A22a448fC014bEe4A700d70726dA7",
+            type: "EOA"
+          }, {
+            address: "0xD05e9Ab3B6A7F10ec1374bc352854ABA51643E81",
+            type: "EOA"
+          }, {
+            address: "0x5553a23a71Bc7985c8E58Ca08072D2Fa9D1D1F4c",
+            type: "EOA"
+          }, {
+            address: "0x4D8007a0E9f293e62E2b0F43C6Cf4C4B9e135BAe",
+            type: "EOA"
+          }
+        ],
+        references: undefined
+      }, {
+        name: "ChallengerMultisig",
+        description: "This address is the permissioned challenger of the system. It can delete non finalized roots without going through the fault proof process. This is a Gnosis Safe with 4 / 6 threshold.",
+        accounts: [
+          {
+            address: "0xcA4571b1ecBeC86Ea2E660d242c1c29FcB55Dc72",
+            type: "MultiSig"
+          }
+        ]
+      }, {
+        name: "ChallengerMultisig participants",
+        description: "Those are the participants of the ChallengerMultisig.",
+        accounts: [
+          {
+            address: "0xf2989961Bf987bdD6c86CD6B845B6fACa194a8e4",
+            type: "EOA"
+          }, {
+            address: "0xe7d71aea6FB8248d4fD4D5d5098D201674B531dB",
+            type: "EOA"
+          }, {
+            address: "0xc08C1b8fD69A22a448fC014bEe4A700d70726dA7",
+            type: "EOA"
+          }, {
+            address: "0xD05e9Ab3B6A7F10ec1374bc352854ABA51643E81",
+            type: "EOA"
+          }, {
+            address: "0x5553a23a71Bc7985c8E58Ca08072D2Fa9D1D1F4c",
+            type: "EOA"
+          }, {
+            address: "0x4D8007a0E9f293e62E2b0F43C6Cf4C4B9e135BAe",
+            type: "EOA"
+          }
+        ],
+        references: undefined
+      }, {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0xD4ef175B9e72cAEe9f1fe7660a6Ec19009903b49",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the OptimismPortal, L1ERC721Bridge, L2OutputOracle, SystemConfig, OptimismMintableERC20Factory, L1StandardBridge, AddressManager proxies. It’s controlled by the ZoraMultisig."
+      },
+      {
+        name: "Sequencer",
+        accounts: [
+          {
+            address: "0x625726c858dBF78c0125436C943Bf4b4bE9d9033",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to commit L2 transactions to L1"
+      }, {
+        name: "Proposer",
+        accounts: [
+          {
+            address: "0x48247032092e7b0ecf5dEF611ad89eaf3fC888Dd",
+            type: "EOA"
+          }
+        ],
+        description: "Central actor allowed to post new L2 state roots to L1"
+      }
+    ],
+    contracts: {
+      addresses: [
+        {
+          name: "L2OutputOracle",
+          address: "0x9E6204F750cD866b299594e2aC9eA824E2e5f95c",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x9eedde6b4D3263b97209Ba860eDF3Fc6a8fB6a44",
+            admin: "0xD4ef175B9e72cAEe9f1fe7660a6Ec19009903b49"
+          },
+          description: "The L2OutputOracle contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "OptimismPortal",
+          address: "0x1a0ad011913A150f69f6A19DF447A0CfD9551054",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x43260ee547c3965bb2a0174763bb8FEcC650BA4A",
+            admin: "0xD4ef175B9e72cAEe9f1fe7660a6Ec19009903b49"
+          },
+          description: "The OptimismPortal contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "SystemConfig",
+          address: "0xA3cAB0126d5F504B071b81a3e8A2BBBF17930d86",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0x17fb7c8Ce213F1A7691ee41EA880ABf6eBC6fa95",
+            admin: "0xD4ef175B9e72cAEe9f1fe7660a6Ec19009903b49"
+          },
+          description: "It contains configuration parameters such as the Sequencer address, the L2 gas limit and the unsafe block signer address.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "L1CrossDomainMessenger",
+          address: "0xdC40a14d9abd6F410226f1E6de71aE03441ca506",
+          upgradeability: {
+            type: "resolved delegate proxy",
+            addressManager: "0xEF8115F2733fb2033a7c756402Fc1deaa56550Ef",
+            implementationName: "OVM_L1CrossDomainMessenger",
+            implementation: "0x363B4B1ADa52E50353f746999bd9E94395190d2C"
+          },
+          description: "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }, {
+          name: "L1ERC721Bridge",
+          address: "0x83A4521A3573Ca87f3a971B169C5A0E1d34481c3",
+          upgradeability: {
+            type: "EIP1967 proxy",
+            implementation: "0xDBCdA21518AF39E7feb9748F6718D3db11591461",
+            admin: "0xD4ef175B9e72cAEe9f1fe7660a6Ec19009903b49"
+          },
+          description: "The L1ERC721Bridge contract is the main entry point to deposit ERC721 tokens from L1 to L2.",
+          upgradableBy: [ "ProxyAdmin" ],
+          upgradeDelay: "No delay"
+        }
+      ],
+      risks: [
+        {
+          category: "Funds can be stolen if",
+          text: "a contract receives a malicious code upgrade. There is no delay on code upgrades.",
+          isCritical: true
+        }
+      ]
+    },
+    milestones: [
+      {
+        name: "Zora Network Launch",
+        link: "https://twitter.com/ourZORA/status/1671602234994622464",
+        date: "2023-06-21T00:00:00Z",
+        description: "Zora Network is live on mainnet."
+      }
+    ],
+    knowledgeNuggets: [
+      {
+        title: "How Optimism compresses data",
+        url: "https://twitter.com/bkiepuszewski/status/1508740414492323840?s=20&t=vMgR4jW1ssap-A-MBsO4Jw",
+        thumbnail: "l2beat-03.jpg"
+      }, {
+        title: "Bedrock Explainer",
+        url: "https://community.optimism.io/docs/developers/bedrock/explainer/",
+        thumbnail: "optimism-04.jpg"
+      }, {
+        title: "Modular Rollup Theory",
+        url: "https://www.youtube.com/watch?v=jnVjhp41pcc",
+        thumbnail: "modular-rollup.jpg"
+      }
+    ]
+  }
+]
