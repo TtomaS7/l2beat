@@ -362,6 +362,7 @@ export class ProjectDiscovery {
 
   getOpStackContractDetails(
     upgradesProxy: Partial<ProjectContractSingleAddress>,
+    overrides?: Record<string, string>
   ): ProjectContractSingleAddress[] {
     const CONTRACT_DESCRIPTION = [
       {
@@ -381,8 +382,8 @@ export class ProjectDiscovery {
       },
     ]
 
-    return CONTRACT_DESCRIPTION.map(d => this.getContractDetails(d.name, {
-        description: stringFormat(d.description, d.name),
+    return CONTRACT_DESCRIPTION.map(d => this.getContractDetails(overrides?.[d.name] ?? d.name, {
+        description: stringFormat(d.description, overrides?.[d.name] ?? d.name),
         ...upgradesProxy
     }))
   }
