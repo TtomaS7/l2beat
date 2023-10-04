@@ -137,6 +137,11 @@ export class ProjectDiscovery {
   getOpStackPermissions(): ProjectPermission[] {
       const PERMISSION_TEMPLATES = [
           {
+              name: 'Sequencer',
+              source: { contract: 'SystemConfig', value: 'batcherHash', },
+              description: 'Central actor allowed to commit L2 transactions to L1.',
+          },
+          {
               name: 'Proposer',
               source: {contract: 'L2OutputOracle', value: 'PROPOSER'},
               description: 'Central actor allowed to post new L2 state roots to L1.',

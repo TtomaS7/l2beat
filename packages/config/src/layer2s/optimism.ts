@@ -364,13 +364,6 @@ export const optimism: Layer2 = {
       description:
         'Admin of the OptimismPortal, L2OutputOracle, SystemConfig contract, L1StandardBridge, AddressManager proxies. It’s controlled by the OptimismMultisig.',
     },
-    {
-      name: 'Sequencer',
-      accounts: [
-        discovery.getPermissionedAccount('SystemConfig', 'batcherHash'),
-      ],
-      description: 'Central actor allowed to commit L2 transactions to L1.',
-    },
     ...discovery.getOpStackPermissions(),
     {
       name: 'Challenger',

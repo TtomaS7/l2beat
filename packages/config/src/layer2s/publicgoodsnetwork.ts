@@ -260,13 +260,6 @@ export const publicgoodsnetwork: Layer2 = {
       description:
         "Admin of the AddressManager, SystemConfig, L2OutputOracle, OptimismPortal, L1StandardBridge proxies. It's controlled by the PGNMultisig.",
     },
-    {
-      name: 'Sequencer',
-      accounts: [
-        discovery.getPermissionedAccount('SystemConfig', 'batcherHash'),
-      ],
-      description: 'Central actor allowed to commit L2 transactions to L1',
-    },
     ...discovery.getOpStackPermissions(),
   ],
   contracts: {
