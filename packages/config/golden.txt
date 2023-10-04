@@ -391,7 +391,7 @@
             type: "EOA"
           }
         ],
-        description: "Central actor allowed to post new L2 state roots to L1"
+        description: "Central actor allowed to post new L2 state roots to L1."
       }, {
         name: "Challenger",
         accounts: [
@@ -1555,7 +1555,7 @@
             type: "EOA"
           }
         ],
-        description: "Central actor allowed to post new L2 state roots to L1"
+        description: "Central actor allowed to post new L2 state roots to L1."
       }
     ],
     contracts: {
@@ -2852,7 +2852,7 @@
             type: "EOA"
           }
         ],
-        description: "Central actor allowed to post new L2 state roots to L1"
+        description: "Central actor allowed to post new L2 state roots to L1."
       }
     ],
     contracts: {
@@ -3375,7 +3375,7 @@
             type: "EOA"
           }
         ],
-        description: "Central actor allowed to post new L2 state roots to L1"
+        description: "Central actor allowed to post new L2 state roots to L1."
       }
     ],
     contracts: {

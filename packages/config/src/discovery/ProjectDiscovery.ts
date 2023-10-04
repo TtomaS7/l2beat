@@ -21,10 +21,14 @@ import {
   ProjectReference,
 } from '../common'
 import {
+    calculateInversion
+} from '@l2beat/discovery'
+import {
   ProjectContractSingleAddress,
   ProjectUpgradeability,
 } from '../common/ProjectContracts'
 import { delayDescriptionFromSeconds } from '../utils/delayDescription'
+import { InvertedAddresses } from '@l2beat/discovery/dist/inversion/runInversion'
 
 type AllKeys<T> = T extends T ? keyof T : never
 
@@ -124,6 +128,30 @@ export class ProjectDiscovery {
         upgradeDelay,
       },
     }
+  }
+
+  getInversion(): InvertedAddresses {
+      return calculateInversion(this.discovery)
+  }
+
+  getOpStackPermissions(): ProjectPermission[] {
+      const PERMISSION_TEMPLATES = [
+          {
+              name: 'Proposer',
+              source: {contract: 'L2OutputOracle', value: 'PROPOSER'},
+              description: 'Central actor allowed to post new L2 state roots to L1.',
+          },
+      ]
+
+      const addresses = this.getInversion()
+      //console.log(addresses)
+      return PERMISSION_TEMPLATES.map(p => ({
+          name: p.name,
+          accounts: [
+              this.getPermissionedAccount(p.source.contract, p.source.value),
+          ],
+          description: p.description,
+      }))
   }
 
   getMultisigPermission(

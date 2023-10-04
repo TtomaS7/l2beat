@@ -371,13 +371,7 @@ export const optimism: Layer2 = {
       ],
       description: 'Central actor allowed to commit L2 transactions to L1.',
     },
-    {
-      name: 'Proposer',
-      accounts: [
-        discovery.getPermissionedAccount('L2OutputOracle', 'PROPOSER'),
-      ],
-      description: 'Central actor allowed to post new L2 state roots to L1.',
-    },
+    ...discovery.getOpStackPermissions(),
     {
       name: 'Challenger',
       accounts: [
