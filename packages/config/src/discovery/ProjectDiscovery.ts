@@ -367,12 +367,12 @@ export class ProjectDiscovery {
       {
         name: 'L2OutputOracle',
         description:
-          'The L2OutputOracle contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.',
+          'The {0} contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.',
       },
       {
         name: 'OptimismPortal',
         description:
-          'The OptimismPortal contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.',
+          'The {0} contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.',
       },
       {
         name: 'SystemConfig',
@@ -382,7 +382,7 @@ export class ProjectDiscovery {
     ]
 
     return CONTRACT_DESCRIPTION.map(d => this.getContractDetails(d.name, {
-        description: d.description,
+        description: stringFormat(d.description, d.name),
         ...upgradesProxy
     }))
   }
@@ -409,3 +409,11 @@ function isNonNullable<T>(
 ): value is NonNullable<T> {
   return value !== null && value !== undefined
 }
+
+export function stringFormat(str: string, ...val: string[]) {
+    for (let index = 0; index < val.length; index++) {
+        str = str.replace(`{${index}}`, val[index]);
+    }
+    return str;
+}
+
