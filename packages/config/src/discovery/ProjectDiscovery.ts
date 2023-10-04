@@ -359,6 +359,7 @@ export class ProjectDiscovery {
     return contract
   }
 
+
   getOpStackContractDetails(
     upgradesProxy: Partial<ProjectContractSingleAddress>,
     overrides?: Record<string, string>,
@@ -366,29 +367,29 @@ export class ProjectDiscovery {
     const CONTRACT_DESCRIPTION = [
       {
         name: 'L2OutputOracle',
-        description:
+        coreDescription:
           'The {0} contract contains a list of proposed state roots which Proposers assert to be a result of block execution. Currently only the PROPOSER address can submit new state roots.',
       },
       {
         name: 'OptimismPortal',
-        description:
+        coreDescription:
           'The {0} contract is the main entry point to deposit funds from L1 to L2. It also allows to prove and finalize withdrawals.',
       },
       {
         name: 'SystemConfig',
-        description:
+        coreDescription:
           'It contains configuration parameters such as the Sequencer address, the L2 gas limit and the unsafe block signer address.',
       },
       {
         name: 'L1CrossDomainMessenger',
-        description:
+        coreDescription:
           "The {0} (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
       },
     ]
 
     return CONTRACT_DESCRIPTION.map((d) =>
       this.getContractDetails(overrides?.[d.name] ?? d.name, {
-        description: stringFormat(d.description, overrides?.[d.name] ?? d.name),
+        description: stringFormat(d.coreDescription, overrides?.[d.name] ?? d.name),
         ...upgradesProxy,
       }),
     )
@@ -416,6 +417,8 @@ function isNonNullable<T>(
 ): value is NonNullable<T> {
   return value !== null && value !== undefined
 }
+
+type OP_STACK_CONTRACT_NAME = "L2OutputOracle" | "OptimismPortal" | "SystemConfig" | "L1CrossDomainMessenger"
 
 export function stringFormat(str: string, ...val: string[]) {
   for (let index = 0; index < val.length; index++) {
