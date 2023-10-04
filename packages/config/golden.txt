@@ -457,7 +457,7 @@
             implementationName: "OVM_L1CrossDomainMessenger",
             implementation: "0x8CfF5bDb1B428B979E3D87087dA8549A28065DDB"
           },
-          description: "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          description: "The L1 Cross Domain Messenger (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
           upgradableBy: [ "ProxyAdmin" ],
           upgradeDelay: "No delay"
         }, {
@@ -1110,7 +1110,7 @@
             implementationName: "OVM_L1CrossDomainMessenger",
             implementation: "0x81C4Bd600793EBd1C0323604E1F455fE50A951F8"
           },
-          description: "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          description: "The L1 Cross Domain Messenger (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
           upgradableBy: [ "ProxyAdmin" ],
           upgradeDelay: "No delay"
         }, {
@@ -1602,7 +1602,7 @@
             implementationName: "OVM_L1CrossDomainMessenger",
             implementation: "0x9cDDc6F65eD67Ef19743fFDFD53501457ce8B51f"
           },
-          description: "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          description: "The L1 Cross Domain Messenger (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
           upgradableBy: [ "ProxyAdmin" ],
           upgradeDelay: "No delay"
         }
@@ -2899,7 +2899,7 @@
             implementationName: "OVM_L1CrossDomainMessenger",
             implementation: "0x1d8180D739D01dC97e837478af8d494215C5EF5e"
           },
-          description: "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          description: "The L1 Cross Domain Messenger (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
           upgradableBy: [ "ProxyAdmin" ],
           upgradeDelay: "No delay"
         }
@@ -3422,7 +3422,7 @@
             implementationName: "OVM_L1CrossDomainMessenger",
             implementation: "0x363B4B1ADa52E50353f746999bd9E94395190d2C"
           },
-          description: "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+          description: "The L1 Cross Domain Messenger (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
           upgradableBy: [ "ProxyAdmin" ],
           upgradeDelay: "No delay"
         }, {

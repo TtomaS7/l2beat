@@ -380,6 +380,11 @@ export class ProjectDiscovery {
         description:
           'It contains configuration parameters such as the Sequencer address, the L2 gas limit and the unsafe block signer address.',
       },
+      {
+        name: 'L1CrossDomainMessenger',
+        description:
+          'The L1 Cross Domain Messenger (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract\'s replay function.',
+      },
     ]
 
     return CONTRACT_DESCRIPTION.map(d => this.getContractDetails(overrides?.[d.name] ?? d.name, {

@@ -277,11 +277,6 @@ export const aevo: Layer2 = {
   contracts: {
     addresses: [
       ...discovery.getOpStackContractDetails(upgradesProxy),
-      discovery.getContractDetails('L1CrossDomainMessenger', {
-        description:
-          "The L1 Cross Domain Messenger contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
-        ...upgradesProxy,
-      }),
       discovery.getContractDetails('L1StandardBridge', {
         description:
           'The L1StandardBridge contract is the main entry point to deposit ERC20 tokens from L1 to L2.',
