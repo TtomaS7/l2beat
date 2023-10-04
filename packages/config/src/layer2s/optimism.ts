@@ -389,7 +389,7 @@ export const optimism: Layer2 = {
   contracts: {
     addresses: [
       ...discovery.getOpStackContractDetails(upgradesProxy, {
-          "L1CrossDomainMessenger": "L1CrossDomainMessengerProxy",
+        L1CrossDomainMessenger: 'L1CrossDomainMessengerProxy',
       }),
     ],
     risks: [CONTRACTS.UPGRADE_NO_DELAY_RISK],

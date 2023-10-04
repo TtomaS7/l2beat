@@ -278,9 +278,7 @@ export const mantapacific: Layer2 = {
     },
   ],
   contracts: {
-    addresses: [
-      ...discovery.getOpStackContractDetails(upgradesProxy),
-    ],
+    addresses: [...discovery.getOpStackContractDetails(upgradesProxy)],
     risks: [CONTRACTS.UPGRADE_NO_DELAY_RISK],
   },
   milestones: [

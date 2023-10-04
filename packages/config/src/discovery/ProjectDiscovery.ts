@@ -10,7 +10,6 @@ import {
   UnixTime,
 } from '@l2beat/shared-pure'
 import { utils } from 'ethers'
-import { getContractAddress } from 'ethers/lib/utils'
 import fs from 'fs'
 import { isArray, isString } from 'lodash'
 import path from 'path'
@@ -362,7 +361,7 @@ export class ProjectDiscovery {
 
   getOpStackContractDetails(
     upgradesProxy: Partial<ProjectContractSingleAddress>,
-    overrides?: Record<string, string>
+    overrides?: Record<string, string>,
   ): ProjectContractSingleAddress[] {
     const CONTRACT_DESCRIPTION = [
       {
@@ -383,14 +382,16 @@ export class ProjectDiscovery {
       {
         name: 'L1CrossDomainMessenger',
         description:
-          'The {0} (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract\'s replay function.',
+          "The {0} (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
       },
     ]
 
-    return CONTRACT_DESCRIPTION.map(d => this.getContractDetails(overrides?.[d.name] ?? d.name, {
+    return CONTRACT_DESCRIPTION.map((d) =>
+      this.getContractDetails(overrides?.[d.name] ?? d.name, {
         description: stringFormat(d.description, overrides?.[d.name] ?? d.name),
-        ...upgradesProxy
-    }))
+        ...upgradesProxy,
+      }),
+    )
   }
 
   private getContractByName(name: string): ContractParameters {
@@ -417,9 +418,8 @@ function isNonNullable<T>(
 }
 
 export function stringFormat(str: string, ...val: string[]) {
-    for (let index = 0; index < val.length; index++) {
-        str = str.replace(`{${index}}`, val[index]);
-    }
-    return str;
+  for (let index = 0; index < val.length; index++) {
+    str = str.replaceAll(`{${index}}`, val[index])
+  }
+  return str
 }
-
