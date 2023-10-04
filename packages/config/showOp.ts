@@ -23,8 +23,8 @@ function contractsResearch(opStacks: Layer2[]) {
 }
 
 function permissionsResearch(opStacks: Layer2[]) {
-    // const names = opStacks.filter(l2 => l2.permissions && l2.permissions !== 'UnderReview').map(l2 => l2.permissions.map(p => p.name)).flatMap(e => e)
-    console.log(opStacks.map(l2 => l2.display.slug))
+    const names = opStacks.filter(l2 => l2.permissions && l2.permissions !== 'UnderReview').filter(l2 => l2.permissions.map(p => p.name === 'ProxyAdmin')).flatMap(l2 => l2.permissions).filter(e => e.name === 'ProxyAdmin').map(e => e.description)
+    console.log(names)
 }
 
 const opStacks = layer2s.filter(

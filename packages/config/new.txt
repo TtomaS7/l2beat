@@ -1,3 +1,11 @@
+[ "L1StandardBridge", "OptimismPortal", "L2OutputOracle", "SystemConfig" ]
+[ "OptimismMintableERC20Factory", "L1StandardBridge", "OptimismPortal", "L2OutputOracle", "L1ERC721Bridge",
+  "SystemConfig" ]
+[ "L2OutputOracle", "L1StandardBridge", "SystemConfig", "OptimismPortal" ]
+[ "SystemConfig", "L1StandardBridge", "OptimismPortal", "L2OutputOracle" ]
+[ "SystemConfig", "L2OutputOracle", "OptimismPortal", "L1StandardBridge" ]
+[ "OptimismPortal", "L1StandardBridge", "L1ERC721Bridge", "L2OutputOracle", "SystemConfig", "OptimismMintableERC20Factory"
+]
 [
   {
     type: "layer2",
@@ -375,6 +383,15 @@
         description: "Admin of the OptimismPortal, L2OutputOracle, SystemConfig, L1StandardBridge, AddressManager proxies. It’s controlled by the PGNMultiSig."
       },
       {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0x27ff92b30Cae00dABCF8045cc68fc9dcB67C5019",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the {0}. It's controlled by the {1}."
+      }, {
         name: "Sequencer",
         accounts: [
           {
@@ -1047,6 +1064,15 @@
         description: "Admin of the OptimismPortal, L1ERC721Bridge, L2OutputOracle, OptimismMintableERC20Factory, L1StandardBridge, AddressManager, SystemConfig proxies. It's controlled by the AdminMultisig."
       },
       {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0x0475cBCAebd9CE8AfA5025828d5b98DFb67E059E",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the {0}. It's controlled by the {1}."
+      }, {
         name: "Sequencer",
         accounts: [
           {
@@ -1539,6 +1565,15 @@
         description: "Admin of the OptimismPortal, L2OutputOracle, SystemConfig, L1StandardBridge, AddressManager proxies."
       },
       {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0xa2DCa85BB892De55D8B262d1806114733106e8D1",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the {0}. It's controlled by the {1}."
+      }, {
         name: "Sequencer",
         accounts: [
           {
@@ -2268,6 +2303,15 @@
         description: "Admin of the OptimismPortal, L2OutputOracle, SystemConfig contract, L1StandardBridge, AddressManager proxies. It’s controlled by the OptimismMultisig."
       },
       {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0x543bA4AADBAb8f9025686Bd03993043599c6fB04",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the {0}. It's controlled by the {1}."
+      }, {
         name: "Sequencer",
         accounts: [
           {
@@ -2836,6 +2880,15 @@
         description: "Admin of the AddressManager, SystemConfig, L2OutputOracle, OptimismPortal, L1StandardBridge proxies. It's controlled by the PGNMultisig."
       },
       {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0xc6A8d2c5d0F068BE745f6A770378F01ca1714cc4",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the {0}. It's controlled by the {1}."
+      }, {
         name: "Sequencer",
         accounts: [
           {
@@ -3359,6 +3412,15 @@
         description: "Admin of the OptimismPortal, L1ERC721Bridge, L2OutputOracle, SystemConfig, OptimismMintableERC20Factory, L1StandardBridge, AddressManager proxies. It’s controlled by the ZoraMultisig."
       },
       {
+        name: "ProxyAdmin",
+        accounts: [
+          {
+            address: "0xD4ef175B9e72cAEe9f1fe7660a6Ec19009903b49",
+            type: "Contract"
+          }
+        ],
+        description: "Admin of the {0}. It's controlled by the {1}."
+      }, {
         name: "Sequencer",
         accounts: [
           {

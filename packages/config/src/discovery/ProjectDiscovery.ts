@@ -137,25 +137,48 @@ export class ProjectDiscovery {
   getOpStackPermissions(): ProjectPermission[] {
       const PERMISSION_TEMPLATES = [
           {
+              name: 'ProxyAdmin',
+              source: { contract: 'AddressManager', value: 'owner', },
+              description: "Admin of the {0}. It's controlled by the {1}.",
+              descriptionArgSource: [{name: "admin"}, {name: "owner", reverse: true}]
+          },
+          {
               name: 'Sequencer',
               source: { contract: 'SystemConfig', value: 'batcherHash', },
               description: 'Central actor allowed to commit L2 transactions to L1.',
+              descriptionArgSource: []
           },
           {
               name: 'Proposer',
               source: {contract: 'L2OutputOracle', value: 'PROPOSER'},
               description: 'Central actor allowed to post new L2 state roots to L1.',
+              descriptionArgSource: []
           },
       ]
 
-      const addresses = this.getInversion()
-      //console.log(addresses)
+      const inversion = this.getInversion()
+      function getDescription(p: typeof PERMISSION_TEMPLATES[0]) {
+          for(const argSource of p.descriptionArgSource) {
+              if(argSource.reverse) {
+              } else {
+                  for(const entry of inversion.values()) {
+                      if(p.name === entry.name) {
+                          console.log(entry.roles.filter(r => r.name === argSource.name).map(r => r.atName))
+                      }
+                  }
+              }
+          }
+
+          return p.description
+      }
+
+
       return PERMISSION_TEMPLATES.map(p => ({
           name: p.name,
           accounts: [
               this.getPermissionedAccount(p.source.contract, p.source.value),
           ],
-          description: p.description,
+          description: getDescription(p),
       }))
   }
 
