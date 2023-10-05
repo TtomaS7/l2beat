@@ -1,3 +1,5 @@
+import { calculateInversion } from '@l2beat/discovery'
+import { InvertedAddresses } from '@l2beat/discovery/dist/inversion/runInversion'
 import type {
   ContractParameters,
   ContractValue,
@@ -21,14 +23,10 @@ import {
   ProjectReference,
 } from '../common'
 import {
-    calculateInversion
-} from '@l2beat/discovery'
-import {
   ProjectContractSingleAddress,
   ProjectUpgradeability,
 } from '../common/ProjectContracts'
 import { delayDescriptionFromSeconds } from '../utils/delayDescription'
-import { InvertedAddresses } from '@l2beat/discovery/dist/inversion/runInversion'
 
 type AllKeys<T> = T extends T ? keyof T : never
 
@@ -131,67 +129,77 @@ export class ProjectDiscovery {
   }
 
   getInversion(): InvertedAddresses {
-      return calculateInversion(this.discovery)
+    return calculateInversion(this.discovery)
   }
 
   getOpStackPermissions(): ProjectPermission[] {
-      const PERMISSION_TEMPLATES = [
-          {
-              name: 'ProxyAdmin',
-              source: { contract: 'AddressManager', value: 'owner', },
-              description: "Admin of the {0} proxies. It's controlled by the {1}.",
-              descriptionArgSource: [[{name: "admin"}, {name: "addressManager", reverse: true}], [{name: "owner", reverse: true}]]
-          },
-          {
-              name: 'Sequencer',
-              source: { contract: 'SystemConfig', value: 'batcherHash', },
-              description: 'Central actor allowed to commit L2 transactions to L1.',
-              descriptionArgSource: []
-          },
-          {
-              name: 'Proposer',
-              source: {contract: 'L2OutputOracle', value: 'PROPOSER'},
-              description: 'Central actor allowed to post new L2 state roots to L1.',
-              descriptionArgSource: []
-          },
-      ]
+    const PERMISSION_TEMPLATES = [
+      {
+        name: 'ProxyAdmin',
+        source: { contract: 'AddressManager', value: 'owner' },
+        description: "Admin of the {0} proxies. It's controlled by the {1}.",
+        descriptionArgSource: [
+          [{ name: 'admin' }, { name: 'addressManager', reverse: true }],
+          [{ name: 'owner', reverse: true }],
+        ],
+      },
+      {
+        name: 'Sequencer',
+        source: { contract: 'SystemConfig', value: 'batcherHash' },
+        description: 'Central actor allowed to commit L2 transactions to L1.',
+        descriptionArgSource: [],
+      },
+      {
+        name: 'Proposer',
+        source: { contract: 'L2OutputOracle', value: 'PROPOSER' },
+        description: 'Central actor allowed to post new L2 state roots to L1.',
+        descriptionArgSource: [],
+      },
+    ]
 
-      const inversion = this.getInversion()
-      function getDescription(p: typeof PERMISSION_TEMPLATES[0]) {
-          const args = []
+    const inversion = this.getInversion()
+    function getDescription(template: (typeof PERMISSION_TEMPLATES)[0]) {
+      const args = []
 
-          for(const argSources of p.descriptionArgSource) {
-              const arg = []
-              for(const source of argSources) {
-                  if(source.reverse) {
-                      for(const entry of inversion.values()) {
-                          const controls = entry.roles.find(r => r.name === source.name && r.atName === p.name)
-                          if(controls) {
-                              arg.push(entry.name ?? entry.address)
-                          }
-                      }
-                  } else {
-                      for(const entry of inversion.values()) {
-                          if(p.name === entry.name) {
-                              arg.push(entry.roles.filter(r => r.name === source.name).map(r => r.atName).join(", "))
-                          }
-                      }
-                  }
+      for (const argSources of template.descriptionArgSource) {
+        const arg = []
+
+        for (const source of argSources) {
+          if (source.reverse) {
+            for (const entry of inversion.values()) {
+              const controls = entry.roles.find(
+                (r) => r.name === source.name && r.atName === template.name,
+              )
+              if (controls) {
+                arg.push(entry.name ?? entry.address)
               }
-              args.push(arg.join(", "))
+            }
+          } else {
+            for (const entry of inversion.values()) {
+              if (template.name === entry.name) {
+                const matchingRoles = entry.roles.filter(
+                  (r) => r.name === source.name,
+                )
+                const names = matchingRoles.map((r) => r.atName)
+                arg.push(names.join(', '))
+              }
+            }
           }
+        }
 
-          return stringFormat(p.description, ...args)
+        args.push(arg.join(', '))
       }
 
+      return stringFormat(template.description, ...args)
+    }
 
-      return PERMISSION_TEMPLATES.map(p => ({
-          name: p.name,
-          accounts: [
-              this.getPermissionedAccount(p.source.contract, p.source.value),
-          ],
-          description: getDescription(p),
-      }))
+    return PERMISSION_TEMPLATES.map((p) => ({
+      name: p.name,
+      accounts: [
+        this.getPermissionedAccount(p.source.contract, p.source.value),
+      ],
+      description: getDescription(p),
+    }))
   }
 
   getMultisigPermission(
@@ -427,7 +435,6 @@ export class ProjectDiscovery {
     return contract
   }
 
-
   getOpStackContractDetails(
     upgradesProxy: Partial<ProjectContractSingleAddress>,
     overrides?: Record<string, string>,
@@ -457,7 +464,10 @@ export class ProjectDiscovery {
 
     return CONTRACT_DESCRIPTION.map((d) =>
       this.getContractDetails(overrides?.[d.name] ?? d.name, {
-        description: stringFormat(d.coreDescription, overrides?.[d.name] ?? d.name),
+        description: stringFormat(
+          d.coreDescription,
+          overrides?.[d.name] ?? d.name,
+        ),
         ...upgradesProxy,
       }),
     )
@@ -486,7 +496,11 @@ function isNonNullable<T>(
   return value !== null && value !== undefined
 }
 
-type OP_STACK_CONTRACT_NAME = "L2OutputOracle" | "OptimismPortal" | "SystemConfig" | "L1CrossDomainMessenger"
+type OP_STACK_CONTRACT_NAME =
+  | 'L2OutputOracle'
+  | 'OptimismPortal'
+  | 'SystemConfig'
+  | 'L1CrossDomainMessenger'
 
 export function stringFormat(str: string, ...val: string[]) {
   for (let index = 0; index < val.length; index++) {

@@ -372,7 +372,7 @@
             type: "Contract"
           }
         ],
-        description: "Admin of the OptimismPortal, L2OutputOracle, SystemConfig, L1StandardBridge, AddressManager proxies. It’s controlled by the PGNMultiSig."
+        description: "Admin of the L1StandardBridge, OptimismPortal, L2OutputOracle, SystemConfig, AddressManager proxies. It's controlled by the PGNMultiSig."
       },
       {
         name: "Sequencer",
@@ -1044,7 +1044,7 @@
             type: "Contract"
           }
         ],
-        description: "Admin of the OptimismPortal, L1ERC721Bridge, L2OutputOracle, OptimismMintableERC20Factory, L1StandardBridge, AddressManager, SystemConfig proxies. It's controlled by the AdminMultisig."
+        description: "Admin of the OptimismMintableERC20Factory, L1StandardBridge, OptimismPortal, L2OutputOracle, L1ERC721Bridge, SystemConfig, AddressManager proxies. It's controlled by the AdminMultisig."
       },
       {
         name: "Sequencer",
@@ -1536,7 +1536,7 @@
             type: "Contract"
           }
         ],
-        description: "Admin of the OptimismPortal, L2OutputOracle, SystemConfig, L1StandardBridge, AddressManager proxies."
+        description: "Admin of the L2OutputOracle, L1StandardBridge, SystemConfig, OptimismPortal, AddressManager proxies. It's controlled by the AdminMultisig."
       },
       {
         name: "Sequencer",
@@ -2265,7 +2265,7 @@
             type: "Contract"
           }
         ],
-        description: "Admin of the OptimismPortal, L2OutputOracle, SystemConfig contract, L1StandardBridge, AddressManager proxies. It’s controlled by the OptimismMultisig."
+        description: "Admin of the SystemConfig, L1StandardBridge, OptimismPortal, L2OutputOracle, AddressManager proxies. It's controlled by the OptimismMultisig."
       },
       {
         name: "Sequencer",
@@ -2833,7 +2833,7 @@
             type: "Contract"
           }
         ],
-        description: "Admin of the AddressManager, SystemConfig, L2OutputOracle, OptimismPortal, L1StandardBridge proxies. It's controlled by the PGNMultisig."
+        description: "Admin of the SystemConfig, L2OutputOracle, OptimismPortal, L1StandardBridge, AddressManager proxies. It's controlled by the PGNMultisig."
       },
       {
         name: "Sequencer",
@@ -3356,7 +3356,7 @@
             type: "Contract"
           }
         ],
-        description: "Admin of the OptimismPortal, L1ERC721Bridge, L2OutputOracle, SystemConfig, OptimismMintableERC20Factory, L1StandardBridge, AddressManager proxies. It’s controlled by the ZoraMultisig."
+        description: "Admin of the OptimismPortal, L1StandardBridge, L1ERC721Bridge, L2OutputOracle, SystemConfig, OptimismMintableERC20Factory, AddressManager proxies. It's controlled by the ZoraMultisig."
       },
       {
         name: "Sequencer",
