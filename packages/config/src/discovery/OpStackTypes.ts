@@ -4,9 +4,18 @@ export type OpStackContractName =
   | 'SystemConfig'
   | 'L1CrossDomainMessenger'
 
+export type OpStackPermissionName = 'Sequencer' | 'Proposer' | 'ProxyAdmin'
+
 export interface OPStackContractTemplate {
   name: OpStackContractName
   coreDescription: string
+}
+
+export interface OPStackPermissionTemplate {
+  name: OpStackPermissionName
+  source: { contract: string; value: string }
+  description: string
+  descriptionArgSource: { name: string; reverse?: boolean }[][]
 }
 
 export const OP_STACK_CONTRACT_DESCRIPTION: OPStackContractTemplate[] = [
@@ -29,5 +38,29 @@ export const OP_STACK_CONTRACT_DESCRIPTION: OPStackContractTemplate[] = [
     name: 'L1CrossDomainMessenger',
     coreDescription:
       "The {0} (L1xDM) contract sends messages from L1 to L2, and relays messages from L2 onto L1. In the event that a message sent from L1 to L2 is rejected for exceeding the L2 epoch gas limit, it can be resubmitted via this contract's replay function.",
+  },
+]
+
+export const OP_STACK_PERMISSION_TEMPLATES: OPStackPermissionTemplate[] = [
+  {
+    name: 'ProxyAdmin',
+    source: { contract: 'AddressManager', value: 'owner' },
+    description: "Admin of the {0} proxies. It's controlled by the {1}.",
+    descriptionArgSource: [
+      [{ name: 'admin' }, { name: 'addressManager', reverse: true }],
+      [{ name: 'owner', reverse: true }],
+    ],
+  },
+  {
+    name: 'Sequencer',
+    source: { contract: 'SystemConfig', value: 'batcherHash' },
+    description: 'Central actor allowed to commit L2 transactions to L1.',
+    descriptionArgSource: [],
+  },
+  {
+    name: 'Proposer',
+    source: { contract: 'L2OutputOracle', value: 'PROPOSER' },
+    description: 'Central actor allowed to post new L2 state roots to L1.',
+    descriptionArgSource: [],
   },
 ]

@@ -29,7 +29,10 @@ import {
 import { delayDescriptionFromSeconds } from '../utils/delayDescription'
 import {
   OpStackContractName,
+  OpStackPermissionName,
+  OPStackPermissionTemplate,
   OP_STACK_CONTRACT_DESCRIPTION,
+  OP_STACK_PERMISSION_TEMPLATES,
 } from './OpStackTypes'
 
 type AllKeys<T> = T extends T ? keyof T : never
@@ -137,32 +140,8 @@ export class ProjectDiscovery {
   }
 
   getOpStackPermissions(): ProjectPermission[] {
-    const PERMISSION_TEMPLATES = [
-      {
-        name: 'ProxyAdmin',
-        source: { contract: 'AddressManager', value: 'owner' },
-        description: "Admin of the {0} proxies. It's controlled by the {1}.",
-        descriptionArgSource: [
-          [{ name: 'admin' }, { name: 'addressManager', reverse: true }],
-          [{ name: 'owner', reverse: true }],
-        ],
-      },
-      {
-        name: 'Sequencer',
-        source: { contract: 'SystemConfig', value: 'batcherHash' },
-        description: 'Central actor allowed to commit L2 transactions to L1.',
-        descriptionArgSource: [],
-      },
-      {
-        name: 'Proposer',
-        source: { contract: 'L2OutputOracle', value: 'PROPOSER' },
-        description: 'Central actor allowed to post new L2 state roots to L1.',
-        descriptionArgSource: [],
-      },
-    ]
-
     const inversion = this.getInversion()
-    function getDescription(template: (typeof PERMISSION_TEMPLATES)[0]) {
+    function getDescription(template: OPStackPermissionTemplate) {
       const args = []
 
       for (const argSources of template.descriptionArgSource) {
@@ -197,7 +176,7 @@ export class ProjectDiscovery {
       return stringFormat(template.description, ...args)
     }
 
-    return PERMISSION_TEMPLATES.map((p) => ({
+    return OP_STACK_PERMISSION_TEMPLATES.map((p) => ({
       name: p.name,
       accounts: [
         this.getPermissionedAccount(p.source.contract, p.source.value),
