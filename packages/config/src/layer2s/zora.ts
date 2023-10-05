@@ -253,12 +253,6 @@ export const zora: Layer2 = {
       'ChallengerMultisig',
       'This address is the permissioned challenger of the system. It can delete non finalized roots without going through the fault proof process.',
     ),
-    {
-      name: 'ProxyAdmin',
-      accounts: [discovery.getPermissionedAccount('AddressManager', 'owner')],
-      description:
-        'Admin of the OptimismPortal, L1ERC721Bridge, L2OutputOracle, SystemConfig, OptimismMintableERC20Factory, L1StandardBridge, AddressManager proxies. It’s controlled by the ZoraMultisig.',
-    },
     ...discovery.getOpStackPermissions(),
   ],
   contracts: {

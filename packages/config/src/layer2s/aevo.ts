@@ -237,12 +237,6 @@ export const aevo: Layer2 = {
       'PGNMultiSig',
       'This address is the owner of the following contracts: ProxyAdmin, SystemConfig. It is also designated as a Guardian of the OptimismPortal, meaning it can halt withdrawals. It can upgrade the bridge implementation potentially gaining access to all funds, and change the sequencer, state root proposer or any other system component (unlimited upgrade power).',
     ),
-    {
-      name: 'ProxyAdmin',
-      accounts: [discovery.getPermissionedAccount('AddressManager', 'owner')],
-      description:
-        'Admin of the OptimismPortal, L2OutputOracle, SystemConfig, L1StandardBridge, AddressManager proxies. It’s controlled by the PGNMultiSig.',
-    },
     ...discovery.getOpStackPermissions(),
     {
       name: 'Challenger',

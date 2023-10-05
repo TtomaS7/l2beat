@@ -254,12 +254,6 @@ export const publicgoodsnetwork: Layer2 = {
       'GuardianMultisig',
       'This address is the permissioned challenger of the system. It can delete non finalized roots without going through the fault proof process. It is also designated as a Guardian of the OptimismPortal, meaning it can halt withdrawals.',
     ),
-    {
-      name: 'ProxyAdmin',
-      accounts: [discovery.getPermissionedAccount('AddressManager', 'owner')],
-      description:
-        "Admin of the AddressManager, SystemConfig, L2OutputOracle, OptimismPortal, L1StandardBridge proxies. It's controlled by the PGNMultisig.",
-    },
     ...discovery.getOpStackPermissions(),
   ],
   contracts: {

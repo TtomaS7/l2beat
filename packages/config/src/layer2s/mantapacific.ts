@@ -256,12 +256,6 @@ export const mantapacific: Layer2 = {
       accounts: [discovery.getPermissionedAccount('ProxyAdmin', 'owner')],
       description: 'Owner of the ProxyAdmin contract.',
     },
-    {
-      name: 'ProxyAdmin',
-      accounts: [discovery.getPermissionedAccount('AddressManager', 'owner')],
-      description:
-        'Admin of the OptimismPortal, L2OutputOracle, SystemConfig, L1StandardBridge, AddressManager proxies.',
-    },
     ...discovery.getOpStackPermissions(),
   ],
   contracts: {

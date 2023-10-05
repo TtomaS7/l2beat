@@ -139,8 +139,8 @@ export class ProjectDiscovery {
           {
               name: 'ProxyAdmin',
               source: { contract: 'AddressManager', value: 'owner', },
-              description: "Admin of the {0}. It's controlled by the {1}.",
-              descriptionArgSource: [{name: "admin"}, {name: "owner", reverse: true}]
+              description: "Admin of the {0} proxies. It's controlled by the {1}.",
+              descriptionArgSource: [[{name: "admin"}, {name: "addressManager", reverse: true}], [{name: "owner", reverse: true}]]
           },
           {
               name: 'Sequencer',
@@ -158,18 +158,30 @@ export class ProjectDiscovery {
 
       const inversion = this.getInversion()
       function getDescription(p: typeof PERMISSION_TEMPLATES[0]) {
-          for(const argSource of p.descriptionArgSource) {
-              if(argSource.reverse) {
-              } else {
-                  for(const entry of inversion.values()) {
-                      if(p.name === entry.name) {
-                          console.log(entry.roles.filter(r => r.name === argSource.name).map(r => r.atName))
+          const args = []
+
+          for(const argSources of p.descriptionArgSource) {
+              const arg = []
+              for(const source of argSources) {
+                  if(source.reverse) {
+                      for(const entry of inversion.values()) {
+                          const controls = entry.roles.find(r => r.name === source.name && r.atName === p.name)
+                          if(controls) {
+                              arg.push(entry.name ?? entry.address)
+                          }
+                      }
+                  } else {
+                      for(const entry of inversion.values()) {
+                          if(p.name === entry.name) {
+                              arg.push(entry.roles.filter(r => r.name === source.name).map(r => r.atName).join(", "))
+                          }
                       }
                   }
               }
+              args.push(arg.join(", "))
           }
 
-          return p.description
+          return stringFormat(p.description, ...args)
       }
 
 

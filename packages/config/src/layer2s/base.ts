@@ -299,12 +299,6 @@ export const base: Layer2 = {
       'OptimismMultisig',
       "Core multisig of the Optimism team, it can challenge state roots without going through the fault proof process. It's also a member of the AdminMultisig, meaning it can upgrade the bridge implementation potentially gaining access to all funds.",
     ),
-    {
-      name: 'ProxyAdmin',
-      accounts: [discovery.getPermissionedAccount('AddressManager', 'owner')],
-      description:
-        "Admin of the OptimismPortal, L1ERC721Bridge, L2OutputOracle, OptimismMintableERC20Factory, L1StandardBridge, AddressManager, SystemConfig proxies. It's controlled by the AdminMultisig.",
-    },
     ...discovery.getOpStackPermissions(),
   ],
   contracts: {
